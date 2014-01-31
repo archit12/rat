@@ -7,9 +7,7 @@
 		"laravel/framework": "4.1.*"
 	},
 	"require-dev": {
-		"way/generators": "dev-master",
-		"mockery/mockery": "dev-master",
-		"phpunit/phpunit": "3.7.*"
+		"way/generators": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

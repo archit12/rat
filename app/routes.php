@@ -11,7 +11,15 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
+Route::get('/', array ( 
+	"as" => "home", 
+	'uses' => 'HomeController@showLogin'
+	));
+Route::group(array('before' => 'guest'), function () {
+	Route::group(array('before' => 'csrf'), function () {
+		Route::post('/login', array(
+			'as' => 'login',
+			'uses' => 'HomeController@postLogIn'
+		));
+	});
 });
