@@ -4,10 +4,15 @@ class HomeController extends BaseController {
 
 	public function showLogin()
 	{
-		return View::make('login');
+		return View::make('login1');
 	}
 	
 	public function postLogIn() {
+
+
+
+
+		/*
 		$validator = Validator::make(Input::all(), array(
 			'user' => 'required',
 			'password' => 'required'
@@ -28,9 +33,10 @@ class HomeController extends BaseController {
 			}
 			else
 			{
-				return Redirect::route('login')->with('global','userName/password wrong');
+				echo "Login Successfull";
 			}
 		}
+		*/
 	}
 
 }
