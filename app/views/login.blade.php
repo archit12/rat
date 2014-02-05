@@ -14,23 +14,18 @@
     <div style="width: 100%; height: 60%; z-index: 10; position: absolute;">
         <div id="loginpanel">
             <div id="slidedowner" style="background-image: url('assets/images/panelbg.png')">
-                <div style="width: 535px; margin-top: 200px; height: 300px;">
-                @if(Auth::check())
-                	<p>Helllooo</p>
-                @endif
-                	
+                <div style="width: 535px; margin-top: 200px; height: 300px;">                                	
                     {{ Form::open(array('url' => '/login', 'method' => 'post')) }}
                         <p>Enter TT Email ID</p>
-                        <input  type="text" id='user' name="user" {{ (Input::old('user')) ? 'value="'.e(Input::old('user')).'"' : "" }}/>
-                        @if ($errors->has('user'))
-                        	{{ $errors->first('user') }}
+                        <input  type="text" id='user' name="emailid" {{ (Input::old('emailid')) ? 'value="'.e(Input::old('emailid')).'"' : "" }}/>
+                        @if ($errors->has('emailid'))
+                        	{{ $errors->first('emailid') }}
                         @endif
                         <p>Enter Password</p>
                         <input  type="password" id='pwd'  name="password"/>
                         @if ($errors->has('password'))
                         	{{ $errors->first('password') }}
-                        @endif
-                        <input type="checkbox" name="remember">Remember me
+                        @endif                        
                         <input type="submit" title="Enter Reiches" value="Enter Reiches" id="loginbutton" />
                     {{ Form::close() }}
                     <!-- <script type='text/javascript'>
