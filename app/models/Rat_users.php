@@ -2,55 +2,63 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class Rat_users extends Eloquent implements UserInterface, RemindableInterface {
+class Rat_Users extends Eloquent implements UserInterface, RemindableInterface {
 
+	protected $guarded = array();
 	protected $primaryKey = "uid";
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
 	protected $table = 'rat_users';
-
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
 	protected $hidden = array('password');
-	/**
-	 * Get the unique identifier for the user.
-	 *
-	 * @return mixed
-	 */
+
+	public function traits() {
+		return $this->belongsToMany('Traits', 'rat_user_traits', 'tid', 'tid');
+	}
+
+	public function getTraits() {
+		return Rat_Users::find(Session::get('uid'))->traits;
+	}
+
+	public function updateLoginStatus($emailid,$status)
+	{
+		Rat_Users::where('emailid','=',$emailid)->update(array('logged' => $status));
+	}	
+
+	public function register($data_avatar, $details) {				
+		try {
+			$check = Rat_Users::create(array(
+				'ttid' => $details[0]['TTID'],
+				'emailid' => $details[0]['EmailID'],
+				'password' => Hash::make($details[0]['Password']),
+				'logged' => 1,
+				'busy' => 0,
+				'avatar' => $data_avatar['image'],
+				'aname' => $data_avatar['name'],
+				'location' => 0				
+			));
+			return true;
+		}
+		catch(Exception $exception) 
+		{
+			echo $exception;
+			return false;
+		}
+	} 
+
+	public function getDetails($emailid) {
+		return Rat_Users::where('emailid', '=', $emailid)->get()->toArray();
+	}
+
 	public function getAuthIdentifier()
 	{
 		return $this->getKey();
 	}
 
-	/**
-	 * Get the password for the user.
-	 *
-	 * @return string
-	 */
 	public function getAuthPassword()
 	{
 		return $this->password;
 	}
 
-	/**
-	 * Get the e-mail address where password reminders are sent.
-	 *
-	 * @return string
-	 */
 	public function getReminderEmail()
 	{
 		return $this->email;
-	}
-
-
-	public function getAvatar()
-	{
-		Rat_users::where('emailid','=',Auth::user()->emailid, 'AND', 'password', '=', Auth::user()->password);
 	}
 }

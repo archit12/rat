@@ -13,7 +13,7 @@ body:before {
 
         @font-face {
             font-family: "reiches";
-            src: url(reiches.ttf) format("truetype");
+            src: url(../fonts/reiches.ttf) format("truetype");
         }
 
 

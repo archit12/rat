@@ -19,8 +19,10 @@ class TT_User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function getDetails()
 	{
-		$emailid = Input::get('emailid');
-		$password = Input::get('password');
+		$emailid = Session::get('emailid');
+		$password = Session::get('password');		
+		Session::forget('emailid');
+		Session::forget('password');
 		return TT_User::on('mysql_tt')->whereRaw('emailid = ? AND password =?',array($emailid, $password))->get();	
 	}
 

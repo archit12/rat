@@ -9,7 +9,12 @@ class MapController extends BaseController {
 	 */
 	public function showMap()
 	{		
-		return View::make('map');
+		return View::make('map', array('avatar' => AvatarController::setAvatar(), 'traits' => TraitsController::showTraits()));
+	}
+
+	public function showHud()
+	{
+		
 	}
 
 }

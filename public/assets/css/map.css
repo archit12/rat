@@ -1,0 +1,141 @@
+body{
+	background-image:url(../images/home1333.jpg);
+	background-repeat:no-repeat;
+	background-color:#000;
+	color:white;
+}
+.maparea{
+	width:100%;
+	height:100%;
+}
+.maparea .places{
+	opacity:0.0;
+	-webkit-transition: all 0.4s ;
+	-moz-transition: all 0.4s ;
+	-ms-transition: all 0.4s ;
+	-o-transition: all 0.4s ;
+	transition: all 0.4s ;
+	cursor:pointer;
+}
+.maparea .places:hover{
+	opacity:1;
+}
+.house1{
+	animation:manih1 1s ease-in-out 0s infinite alternate;
+	/* Firefox: */
+	-moz-animation:manih1 1s ease-in-out 0s infinite alternate;
+	/* Safari and Chrome: */
+	-webkit-animation:manih1 1s ease-in-out 0s infinite alternate;
+	/* Opera: */
+	-o-animation:manih1 1s ease-in-out 0s infinite alternate;
+}
+.school{
+	animation:manis 1s ease-in-out 0s infinite alternate;
+	/* Firefox: */
+	-moz-animation:manis 1s ease-in-out 0s infinite alternate;
+	/* Safari and Chrome: */
+	-webkit-animation:manis 1s ease-in-out 0s infinite alternate;
+	/* Opera: */
+	-o-animation:manis 1s ease-in-out 0s infinite alternate;
+}
+.market{
+	animation:manim 1s ease-in-out 0s infinite alternate;
+	/* Firefox: */
+	-moz-animation:manim 1s ease-in-out 0s infinite alternate;
+	/* Safari and Chrome: */
+	-webkit-animation:manim 1s ease-in-out 0s infinite alternate;
+	/* Opera: */
+	-o-animation:manim 1s ease-in-out 0s infinite alternate;
+}
+@keyframes manih1
+{
+	0%   {left:357px; top:315px;}
+	100% {left:357px; top:335px;}
+}
+
+@-moz-keyframes manih1 /* Firefox */
+{
+	0%   {left:357px; top:315px;}
+	100% {left:357px; top:335px;}
+}
+
+@-webkit-keyframes manih1/* Safari and Chrome */
+{
+	0%   {left:357px; top:315px;}
+	100% {left:357px; top:335px;}
+}
+
+@-o-keyframes manih1 /* Opera */
+{
+	0%   {left:357px; top:315px;}
+	100% {left:357px; top:335px;}
+}
+@keyframes manis
+{
+	0%   {left:237px; top:50px;}
+	100% {left:237px; top:60px;}
+}
+
+@-moz-keyframes manis /* Firefox */
+{
+	0%   {left:237px; top:50px;}
+	100% {left:237px; top:60px;}
+}
+
+@-webkit-keyframes manis/* Safari and Chrome */
+{
+	0%   {left:237px; top:50px;}
+	100% {left:237px; top:60px;}
+}
+
+@-o-keyframes manis /* Opera */
+{
+	0%   {left:237px; top:50px;}
+	100% {left:237px; top:60px;}
+}
+@keyframes manim
+{
+	0%   {left:585px; top:180px;}
+	100% {left:585px; top:190px;}
+}
+
+@-moz-keyframes manim /* Firefox */
+{
+	0%   {left:585px; top:180px;}
+	100% {left:585px; top:190px;}
+}
+
+@-webkit-keyframes manim/* Safari and Chrome */
+{
+	0%   {left:585px; top:180px;}
+	100% {left:585px; top:190px;}
+}
+
+@-o-keyframes manim /* Opera */
+{
+	0%   {left:585px; top:180px;}
+	100% {left:585px; top:190px;}
+}
+
+#house1{
+	position:absolute;top:343px;left:172px;
+}
+#market{
+	position:absolute;top:36px;left:387px;
+	-moz-transform: scale(1) rotate(-45deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+	-webkit-transform: scale(1) rotate(-45deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+	-o-transform: scale(1) rotate(-45deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+	-ms-transform: scale(1) rotate(-45deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+	transform: scale(1) rotate(-45deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+}
+#school{
+	position:absolute;top:-60px;left:161px;
+	-moz-transform: scale(1) rotate(45deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+	-webkit-transform: scale(1) rotate(45deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+	-o-transform: scale(1) rotate(45deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+	-ms-transform: scale(1) rotate(45deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+	transform: scale(1) rotate(45deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+}
+.marker{
+	position:absolute;
+}

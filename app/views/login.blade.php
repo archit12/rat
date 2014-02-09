@@ -107,7 +107,7 @@
               <tr>
                 <td>
                   <a href="https://www.facebook.com/utsavnarayan" target="_blank">
-                    <img src="img/credits/utsav.jpg" />
+                    <img src="assets/images/credits/utsav.jpg" />
                   </a>
                 </td>
               </tr>

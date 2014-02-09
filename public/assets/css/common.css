@@ -1,7 +1,7 @@
 @font-face
  {
 	font-family: "My Custom Font";
-	src: url(../PiecesofEight.ttf) format("truetype" );
+	src: url(../fonts/PiecesofEight.ttf) format("truetype" );
  }
 body{
 	margin:0px;
@@ -11,7 +11,7 @@ body{
 }
 #notify{
 			display:none;
-			background-image:url("../img/alertbox.png") ;
+			background-image:url("../images/alertbox.png") ;
 			height:110px;
 			width:358px;
 			position:absolute;
@@ -41,7 +41,7 @@ body{
 	opacity:1.0;
 }
 .panel{
-	background-image:url(../img/panel.png);
+	background-image:url('../images/panel.png');
 	background-repeat:repeat;
 	color:black;
 	z-index:200;
@@ -84,7 +84,7 @@ top: -50px;
 	width:50px;
 	height:100%;
 	padding:15px 10px;
-	background-image:url(../img/bar.jpg);
+	background-image:url(../images/bar.jpg);
 	opacity:0.8;
 }
 .rightpanel:hover{
@@ -94,7 +94,7 @@ top: -50px;
 	position:fixed;
 	bottom:0px;
 	width:100%;
-	background-image:url(../img/barv.jpg);
+	background-image:url(../images/barv.jpg);
 	padding-top:10px;
 	
 }

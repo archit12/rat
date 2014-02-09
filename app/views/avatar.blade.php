@@ -35,36 +35,36 @@ session_start();
 			setTimeout(function(){$("#notify").fadeOut(timeout);});
 			if(redirectTo != ""){
 				$("#notify #button").click(function(){
-					$(location).attr("href","home.php");
+					$(location).attr("href","map");
 				});
 			}
 		}
 		</script>
 		
 		<style>
-		#uname:focus,#uname:active
-		{
-			outline-style: hidden;
-			outline:none;
-			padding-left:100;
-		}
-		#ij{
-			z-index: 1;
-		}
-		#ij:hover{
-			cursor:pointer;
-		}
-		#uname{
-			font-family: My Custom Font;background: url('{{ URL::to("assets/images/txtbox.png")}}') no-repeat;height: 80PX;border: none;width: 390PX;position: absolute;top: 180px;left: -125px;padding-left: 60px;font-size:30px;color: #520606;
-		}
-		#emp{
-			font-family: My Custom Font;color:white;font-size: 20px;position: absolute;width: 300px;left: -70px;top: 151px;}
-		#submit{
-			position: absolute;top: 270px;background: none;border: none;
-		}
-		#sel
-		{
-			font-family: My Custom Font;color:white;font-size: 40px;position: absolute;width: 800px;left: 320px;top: 240px;}	
+			#uname:focus,#uname:active
+			{
+				outline-style: hidden;
+				outline:none;
+				padding-left:100;
+			}
+			#ij{
+				z-index: 1;
+			}
+			#ij:hover{
+				cursor:pointer;
+			}
+			#uname{
+				font-family: My Custom Font;background: url('{{ URL::to("assets/images/txtbox.png")}}') no-repeat;height: 80PX;border: none;width: 390PX;position: absolute;top: 180px;left: -125px;padding-left: 60px;font-size:30px;color: #520606;
+			}
+			#emp{
+				font-family: My Custom Font;color:white;font-size: 20px;position: absolute;width: 300px;left: -70px;top: 151px;}
+			#submit{
+				position: absolute;top: 270px;background: none;border: none;
+			}
+			#sel
+			{
+				font-family: My Custom Font;color:white;font-size: 40px;position: absolute;width: 800px;left: 320px;top: 240px;}	
 		</style>
 		
     </head>
@@ -81,7 +81,6 @@ session_start();
 							@for ($i=1; $i <= 24; $i++)
 								{{ HTML::image('assets/images/avatars/'.$i.'.jpg', 'avatar') }}
 							@endfor
-
 						</div>
 					</div>
 				</li>
@@ -173,19 +172,24 @@ session_start();
 				});
 				
 				//function to hide the current opened menu
-				$('#submit').live('click',function(){
+				$('#submit').click(function(){
 				 if($('#uname').val()=="")
 					notify('Please enter your avatar name');
 				else{	
 					//alert($('#pro').attr('src'));
 					$.ajax({
-					  url: "user_login.php",
-					  type : 'post',
-					 data : {'pic':$('#pro').attr('src'),'name':$('#uname').val()},
-					}).done(function(data) {
-						//alert(data);
-						window.location = "game.php";
-						});
+					  'url': 'register',
+					  'type' : 'post',
+					 'data' : {'pic' : $('#pro').attr('src'), 'name' : $('#uname').val()},
+					 'success': function (data) {			 						 
+					 	if (data === "1") {
+					 		window.location = "story";
+					 	}
+					 	else {
+					 		notify("Avatar name already taken!");
+					 	}
+					 },
+					});
 					}	
 				});
 
@@ -214,7 +218,7 @@ session_start();
     </body>
 </html>
 <?php
- if((isset($_SESSION['avatar']) && isset($_SESSION['aname']) && !empty($_SESSION['avatar'])))
+ /*if((isset($_SESSION['avatar']) && isset($_SESSION['aname']) && !empty($_SESSION['avatar'])))
  { 
 	//echo "item";
 	 // $res=mysql_fetch_array($r);
@@ -222,6 +226,6 @@ session_start();
 	 // $_SESSION['aname']=$res['aname'];
 	
 	header('Location:map.php');
-}
+}*/
 	
 ?>

@@ -1,7 +1,10 @@
 <?php
 
 class HomeController extends BaseController {
-
+    public function __construct(TT_User $ttuser, Rat_Users $ratuser) {
+        $this->ttuser = new TT_User;
+        $this->ratuser = new Rat_Users;
+    }
 	public function showLogin()
 	{
 		return View::make('login');
@@ -21,16 +24,19 @@ class HomeController extends BaseController {
         		'emailid' => Input::get('emailid'),
         		'password' => Input::get('password')
         	];
+            Session::put('emailid', $credentials['emailid']);
+            Session::put('password', $credentials['password']);
 
             //check if user exists in Reiches database
             if (Auth::attempt($credentials, true)) {
+                $this->ratuser->updateLoginStatus($credentials['emailid'], 1);
+                Session::put('uid', (new Rat_Users)->getDetails(Auth::user()->emailid)->uid);
                 return Redirect::route('map');
             }
             else {
 
                 //check if user exists in TT database
-                $ttuser = new TT_User;
-                if ($ttuser->authenticate()) {
+                if ($this->ttuser->authenticate()) {
                     return Redirect::route('avatar');
                 }
                 else {
@@ -43,11 +49,13 @@ class HomeController extends BaseController {
             return Redirect::route('showLogin');
         }
 
-	}
+	}    
 
-    public function showAvatar()
+    public function rat_logout()
     {
-        return View::make('avatar');
+        $this->ratuser->updateLoginStatus(Auth::user()->emailid, 0);
+        Auth::logout();        
+        return Redirect::route('showLogin');
     }
 
 }

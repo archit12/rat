@@ -1,36 +1,17 @@
-<?php
-/*session_start();
-if(!isset($_SESSION['uid']))
-	{
-		header("Location:index.php");
-		die();
-	}
-include('core/model/modal_smith.php');
-require('./core/model/modal_user.php');
-if(isset($_SESSION['path']))
-	header('Location:'.$_SESSION['path']);
-$uid=$_SESSION['uid'];
-$loc=modal_user::check_location($uid , 5);
-if(!$loc)
-	{
-		echo mysql_error();
-		die();
-	}*/
-?>
+<!DOCTYPE HTML>
 <html>
 	<head>
-		<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
-		<link rel="stylesheet" href="css/common.css" type="text/css"/>
-		<link rel="stylesheet" href="css/map.css" type="text/css"/>
-		<link rel="stylesheet" href="css/forge.css" type="text/css"/>
+		{{ HTML::script('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js') }}		
+		{{ HTML::style('assets/css/common.css') }}
+		{{ HTML::style('assets/css/map.css') }}
+		{{ HTML::style('assets/css/forge.css') }}
 		 <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
-		<link rel="stylesheet" href="css/piemenu.css">
-		<script src="js/jquery.min.js"></script>
-		<script src="js/ajax_v2.js"></script>
-		<script src="js/jquery.menu.js"></script>
-		<script src="js/jquery-ui-1.8.20.custom.min.js"></script>
+		{{ HTML::style('assets/css/piemenu.css') }}		
+		{{ HTML::script('assets/js/ajax_v2.js') }}
+		{{ HTML::script('assets/js/jquery.menu.js') }}		
+		{{ HTML::script('assets/js/jquery-ui-1.8.20.custom.min.js') }}				
 		<script>
-		/*$(document).ready(function(){
+		$(document).ready(function(){
 			$("#i1").mouseover(function(e) {
 				//alert(e.pageX);
 			});
@@ -41,14 +22,14 @@ if(!$loc)
 			$('.st_thumbs').hide();
 			$('.for_pic').hide();
 			$('.out').hide();
-			$('#consume').live('click', function () {
+			$('#consume').click( function () {
 				$('.out').html("");
 					$("#x").show();
 					$('.black_div').show();
 					$('.for_pic').show();
 			$('#cons_an').show();
 				});
-			$('#equip').live('click', function () {
+			$('#equip').click( function () {
 				$('.out').html("");
 					$("#x").show();
 					$('.black_div').show();
@@ -86,54 +67,58 @@ if(!$loc)
 			$("#info").fadeIn("slow").fadeOut("slow");
 			PieMenuInit();
 		}
-		$('#leader').live('click',function(){
+		$('#leader').click(function(){
 
 			//$('#board').show();
 		});
-		$('#close').live('click',function(){
+		$('#close').click(function(){
 
 			$('#board').hide();
 		});
-		$('#logout').live('click',function(){
-			$.ajax({
-				  url: "logout.php",
-				  type : 'get',
-				 data : "logout=2",
-				}).done(function(data){
-				$(location).attr('href','index.php');
-				});
+		$('#logout').click(function(e){
 			
+			$.ajax({
+				  'url': 'rat_logout',
+				  'type' : 'get',
+				  'data': {'asdka':'sadasd'},				  				
+				 'success':function(data){
+				 	alert(data);
+				 },
+			});			
+			e.preventDefault();
 		});
 		
 	
 					
-		*/
+		
 		</script>
 	</head>
 	<body>
 		<?/*php include('hud.php')*/?>
 		<div class="panel rightpanel">
-				<div id='outer_container' class="outer_container" >
-						<a class="menu_button" href="#" title="Equip/Consume"><img src='img/icons/equip.png' class='smoothbig' width='50' heigth='50'/></a>
+				<div id='outer_container' class="outer_container" >										
+						<a class="menu_button" href="#" title="Equip/Consume">{{HTML::image('assets/images/icons/equip.png', 'equip', array('class'=>'smoothbig','height'=>50,'width'=>50))}}</a>
 						<ul class="menu_option">
 						  <li style='font-size:30px;color:white;'><a id='consume' href="#"><span title='Click to Consume'>Item</span></a>Consume</li>
 						  <li style='font-size:30px;color:white;'><a id='equip' href="#"><span title='Click to Equip'>Item</span></a>Equip</li>						 
 						</ul> 
 					<script>$("#consume").click(function() {reset();});$("#equip").click(function() {reset();});</script>	
 					</div>
-				<div id='logot'><a id='logout' href='#' title='Logout' class='smoothbig'><img src='img/icons/logout.png' class='smoothbig' width='50' heigth='50'/></a></div>
-				<div id='leaderboard'><a id='leader' href='lb2/scrolloffame.html' class='smoothbig' title='Leaderboard' target='_blank'><img src='img/icons/leaderboard.png' class='smoothbig' width='50' heigth='50'/></a></div>
-				<div id='st'><a id='story' class='smoothbig' href='game.php'><img src='img/icons/story.png' title='Story' width='50' class='smoothbig' heigth='50'/></a></div>					
+				<div id='logot'><a id='logout' href='rat_logout' title='Logout' class='smoothbig'>{{HTML::image('assets/images/icons/logout.png', 'equip', array('class'=>'smoothbig','height'=>50,'width'=>50))}}</a></div>
+				<div id='leaderboard'><a id='leader' href='lb2/scrolloffame.html' class='smoothbig' title='Leaderboard' target='_blank'>{{HTML::image('assets/images/icons/leaderboard.png', 'equip', array('class'=>'smoothbig','height'=>50,'width'=>50))}}</a></div>
+				<div id='st'><a id='story' class='smoothbig' href='story'>{{HTML::image('assets/images/icons/story.png', 'equip', array('class'=>'smoothbig','height'=>50,'width'=>50))}}</a></div>					
 				
 		</div>
 		<div class="maparea">
-			<a href="home.php"><img src="img/house1.png" id="house1" title="Process your material here." class="places"/></a>
-			<a href="market_f.php"><img src="img/market.png" id="market" title="A central trade point. Meet other players here." class="places"/></a>
-			<a href="attainmenthall.php"><img src="img/school.png" id="school" title="Hone your skills here." class="places"/></a>
+				@include('show_avatar')
+				@include('hud');
+			<a href="home.php">{{HTML::image('assets/images/house1.png', 'house', array('class'=>'places','id'=>'house1','title' => 'Process your materials here'))}}</a>
+			<a href="market_f.php">{{HTML::image('assets/images/market.png', 'market', array('class'=>'places','id'=>'market','title'=>'A central trade point. Meet other players here'))}}</a>
+			<a href="attainmenthall.php">{{HTML::image('assets/images/school.png', 'school', array('class'=>'places','id'=>'school','title'=>'Hone your skills here'))}}</a>
 		</div>
-		<img src="img/marker.png" class="house1 marker" />
-		<img src="img/marker.png" class="school marker" style="display:none;"/>
-		<img src="img/marker.png" class="market marker" style="display:none;"/>
+		{{HTML::image('assets/images/marker.png', 'marker', array('class'=>'house1 marker'))}}
+		{{HTML::image('assets/images/marker.png', 'marker', array('class'=>'school marker', 'style' => 'display:none;'))}}
+		{{HTML::image('assets/images/marker.png', 'marker', array('class'=>'market marker', 'style' => 'display:none;'))}}
 		<div id='x' style=''>
 			 <div id="st_main" class="st_main" >	
 			 	<div class='black_div'><h2 style='z-index:3;position:absolute;top:10px;left:20px;font-family:"My Custom Font";font-size: 33px;'> Select an item from the list below </h2>	</div>	
@@ -144,10 +129,10 @@ if(!$loc)
 								<div class="st_wrapper st_thumbs_wrapper">
 
 									<div id='farm_an' class="st_thumbs">
-										<?php smith::get_equip_items($_SESSION['uid'])?>										
+										<?/*php smith::get_equip_items($_SESSION['uid'])*/?>										
 									</div>
 									<div id='cons_an' class="st_thumbs">
-										<?php smith::get_cons_items($_SESSION['uid'])?>										
+										<?/*php smith::get_cons_items($_SESSION['uid'])*/?>										
 									</div>
 									
 								</div>
@@ -158,14 +143,13 @@ if(!$loc)
 					</div>
 
 					<div class='for_pic'>
-						<img src="img/close.png" class="hide_process smoothbig" id="smelter_"/>
-						<img  id='pro' /><br><br>
-							
+						{{HTML::image('assets/images/close.png', 'Close', array('class'=>'hide_process smoothbig', 'id' => 'smelter_'))}}
+						<img  id='pro' /><br><br>							
 					</div>	
 					<div class='out'></div></div>
-		<img class="animateopacity" src="img/logo.png" style="position:fixed;bottom:50px;left:30px;" title="copyright - Software Incubator 2013"/>
+					{{HTML::image('assets/images/logo.png', 'Logo', array('class'=>'animateopacity', 'style' => 'position:fixed;bottom:50px;left:30px;','title' => 'copyright - Software Incubator 2013'))}}		
 		 <script type="text/javascript">
-            /*$(function() {
+            $(function() {
             	var x="";
 				//the loading image
 				var $loader		= $('#st_loading');
@@ -285,7 +269,7 @@ if(!$loc)
 						$outer.scrollLeft(left);
 					});
 				}
-            });*/
+            });
         </script>
 	</body>
 </html>
