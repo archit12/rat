@@ -1,21 +1,23 @@
 <?php
 
 class AvatarController extends BaseController {
-	public function __construct(TT_User $ttuser, Rat_Users $ratuser) {
+    public function __construct(TT_User $ttuser, Rat_Users $ratuser) {
         $this->ttuser = new TT_User;
         $this->ratuser = new Rat_Users;
     }
+
 	public static function setAvatar() {
 		$user = (new Rat_Users)->getDetails(Auth::user()->emailid);
+        $avatarSet = true;
 		return array('aname' => $user[0]['aname'], 'avatar' => $user[0]['avatar']);
 	}
 
 	public function showAvatar()
     {
-        return View::make('avatar');        
+        return View::make('avatar');
     }
 
-     public function registerAvatar(){
+    public function registerAvatar(){
         $data_avatar = array('image' => Input::get('pic'), 'name' => Input::get('name'));       
         $details = $this->ttuser->getDetails()->toArray();            
         if($this->ratuser->register($data_avatar, $details)) {            
@@ -24,7 +26,7 @@ class AvatarController extends BaseController {
                 'password' => $details[0]['Password']
             ];
             Auth::attempt($credentials1, true);
-            Session::put('uid', (new Rat_Users)->getDetails(Auth::user()->emailid));
+            Session::put('uid', (new Rat_Users)->getDetails(Auth::user()->emailid)[0]['uid']);
             echo 1;
         }
         else {

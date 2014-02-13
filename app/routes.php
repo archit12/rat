@@ -1,6 +1,15 @@
 <?php
-/*Route::group(['before' => 'guest'], function ()
-{*/
+
+Route::filter('notLoggedIn', function()
+{
+    if (Auth::check())
+    {
+        return Redirect::to('map');
+    }
+});
+
+Route::group(['before' => 'notLoggedIn'], function ()
+{
     Route::get('/', array (
         'as' => 'showLogin',
         'uses' => 'HomeController@showLogin'
@@ -10,25 +19,9 @@
         'as' => 'showLogin',
         'uses' => 'HomeController@showLogin'
         ));
-//});
+});
 
-Route::get('/hud', /*function() {*/
-    
-    /*$traits = DB::table('rat_user_traits')
-        ->join('rat_traits', 'rat_user_traits.tid', '=', 'rat_traits.tid')
-        ->select('rat_user_traits.tid', 'rat_user_traits.value', 'rat_traits.t_name', 'rat_traits.symbol')
-        ->where('rat_user_traits.uid', '=', 7)
-        ->get();*/
-    /*$traits = DB::table('rat_user_traits')
-        ->join('rat_traits', function($join)
-        {
-            $join->on('rat_user_traits.tid', '=', 'rat_traits.tid')
-                 ->where('rat_user_traits.uid', '=', 7);
-        })
-        ->toSQL();*/
-    /*print_r($traits);*/
-//}
-    array(
+Route::get('/hud', array(
         'as' => 'hud',
         'uses' => 'TraitsController@showTraits'
 ));
@@ -53,6 +46,7 @@ Route::get('/story', function() {
 );
 
 Route::get('/avatar', array(
+        'before' => 'avatarFilter',
         'as'=> 'avatar',
         'uses' => 'AvatarController@showAvatar'
         ));
@@ -63,6 +57,9 @@ Route::group(['before' => 'auth'], function () {
         'uses' => 'MapController@showMap'
         ));
 
+    Route::get('/attainmenthall', function () {
+        return View::make('AttainmentHall/attainmentHall');
+    });
     
 });
 

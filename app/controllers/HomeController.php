@@ -30,7 +30,8 @@ class HomeController extends BaseController {
             //check if user exists in Reiches database
             if (Auth::attempt($credentials, true)) {
                 $this->ratuser->updateLoginStatus($credentials['emailid'], 1);
-                Session::put('uid', (new Rat_Users)->getDetails(Auth::user()->emailid)->uid);
+                Session::put('uid', (new Rat_Users)->getDetails(Auth::user()->emailid)[0]['uid']);
+                //dd((new Rat_Users)->getDetails(Auth::user()->emailid)[0]['uid']);
                 return Redirect::route('map');
             }
             else {

@@ -112,9 +112,9 @@
 		<div class="maparea">
 				@include('show_avatar')
 				@include('hud');
-			<a href="home.php">{{HTML::image('assets/images/house1.png', 'house', array('class'=>'places','id'=>'house1','title' => 'Process your materials here'))}}</a>
-			<a href="market_f.php">{{HTML::image('assets/images/market.png', 'market', array('class'=>'places','id'=>'market','title'=>'A central trade point. Meet other players here'))}}</a>
-			<a href="attainmenthall.php">{{HTML::image('assets/images/school.png', 'school', array('class'=>'places','id'=>'school','title'=>'Hone your skills here'))}}</a>
+			<a href="home">{{HTML::image('assets/images/house1.png', 'house', array('class'=>'places','id'=>'house1','title' => 'Process your materials here'))}}</a>
+			<a href="market">{{HTML::image('assets/images/market.png', 'market', array('class'=>'places','id'=>'market','title'=>'A central trade point. Meet other players here'))}}</a>
+			<a href="attainmenthall">{{HTML::image('assets/images/school.png', 'school', array('class'=>'places','id'=>'school','title'=>'Hone your skills here'))}}</a>
 		</div>
 		{{HTML::image('assets/images/marker.png', 'marker', array('class'=>'house1 marker'))}}
 		{{HTML::image('assets/images/marker.png', 'marker', array('class'=>'school marker', 'style' => 'display:none;'))}}

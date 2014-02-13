@@ -9,14 +9,6 @@ class Rat_Users extends Eloquent implements UserInterface, RemindableInterface {
 	protected $table = 'rat_users';
 	protected $hidden = array('password');
 
-	public function traits() {
-		return $this->belongsToMany('Traits', 'rat_user_traits', 'tid', 'tid');
-	}
-
-	public function getTraits() {
-		return Rat_Users::find(Session::get('uid'))->traits;
-	}
-
 	public function updateLoginStatus($emailid,$status)
 	{
 		Rat_Users::where('emailid','=',$emailid)->update(array('logged' => $status));

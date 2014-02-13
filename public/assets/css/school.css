@@ -1,0 +1,231 @@
+body{
+	background-image:url(../img/school.jpg);
+	background-repeat:no-repeat;
+	background-color:#000;
+	overflow:hidden;
+	color:black !important;
+}
+.hard{
+	background:#666;
+}
+.big{
+	height:563px;
+	width:445px;
+}
+#msg
+	{
+		padding:20px !important;
+		font-family:"My Custom Font" !important;
+		font-size:20px !important;
+		color:Black !important;
+		
+	}
+.container
+{
+	width:180px;
+	height:10px;
+	padding:2px;
+	border: solid 1px #fff;
+	position: absolute;
+	bottom: 61px;
+	right: 590px;
+}
+.wait
+{
+	width:1%;
+	height:10px;
+	background-color:#ffe;
+	float:left;
+	
+}
+#hardfront1{
+	background-image:url(../img/pages/cover01.jpg);
+}
+#hardfront2{
+	background-image:url(../img/pages/cover02.jpg);
+}
+#hardback2{
+	background-image:url(../img/pages/cover03.jpg);
+}
+#hardback1{
+	background-image:url(../img/pages/cover04.jpg);
+}
+#archery4{
+	position:absolute;
+	top: 380px;
+	left: 96px;
+}
+#archery1{
+	position:absolute;
+	top: 316px;
+	left: 119px;
+}
+#archery2{
+	position:absolute;
+	top: 315px;
+	left: 162px;
+}
+#archery3{
+	position:absolute;
+	top: 359px;
+	left: 163px;
+}
+#farming4{
+	position: absolute;
+	top: 182px;
+	left: 153px;
+}
+#farming1{
+	position: absolute;
+	top: 132px;
+	left: 153px;
+}
+#farming2{
+	position: absolute;
+	top: 151px;
+	left: 106px;
+}
+#farming3{
+	position: absolute;
+	top: 147px;
+	left: 201px;
+}
+#smithing4{
+	position: absolute;
+	top: 67px;
+left: 375px;
+}
+#smithing1{
+	position: absolute;
+	top: 145px;
+	left: 396px;
+}
+#smithing2{
+	position: absolute;
+	top: 125px;
+	left: 334px;
+}
+#alchemy4{
+	position: absolute;
+	top: 365px;
+	left: 367px;
+}
+#alchemy1{
+	position: absolute;
+	top: 370px;
+	left: 299px;
+}
+#alchemy2{
+	position: absolute;
+	top: 272px;
+	left: 322px;
+}
+#alchemy3{
+	position: absolute;
+	top: 331px;
+	left: 330px;
+}
+#smithing3{
+	position: absolute;
+	top: 96px;
+	left: -6px;
+}
+#wisdom4{
+	position: absolute;
+	top: 286px;
+	left: 179px;
+}
+#wisdom1{
+	position: absolute;
+	top: 302px;
+	left: 222px;
+}
+#wisdom2{
+	position: absolute;
+	top: 345px;
+	left: 238px;
+}
+#wisdom3{
+	position: absolute;
+	top: 359px;
+	left: 144px;
+}
+.learn{
+	opacity:0;
+	-webkit-transition: all 0.4s ease-in;
+	-moz-transition: all 0.4s ease-in;
+	-ms-transition: all 0.4s ease-in;
+	-o-transition: all 0.4s ease-in;
+	transition: all 0.4s ease-in;
+}
+.learnt{
+	opacity:1.0;
+	cursor:pointer;
+}
+.learn:hover{
+	opacity:1.0;
+	cursor:pointer;
+}
+@font-face{
+	font-family: "My Custom Font";
+	src: url(../PiecesofEight.ttf) format("truetype" );
+ }
+ #flipbook{
+	font-family: "My Custom Font";
+	z-index:10;
+}
+ #flipbook .chapter{
+	font-size: 3.2em;
+	font-weight: lighter;
+ }
+ #flipbook ul{
+	list-style:none;
+ }
+ #flipbook li{
+	font-size: 2.0em;
+	font-weight: lighter;
+	position:relative;
+	left:-15px;
+}
+ #flipbook a{
+	text-decoration:none;
+	color:black;
+ }
+ .skillicon{
+	height:200px;
+	align:center;
+ }
+ .aboutskill{
+	text-align:center;
+	width:250px;
+	font-size:28px;
+ }
+ .aboutskill .level{
+	font-size:6em;
+	display:block;
+}
+.upgrade{
+	color:green;
+	text-align:center;
+	font-size:3em;
+}
+.upgrade:hover
+{
+	text-shadow: 0 0 10px rgb(141, 155, 141);
+	
+}
+.popup_tab
+{
+	color:white;
+	padding:5px;
+}	
+#popup
+{
+position: absolute;
+z-index: 27;
+top: -50px;
+left: 180px;
+height: 450px;
+width: 810px;
+padding: 100px;
+}
