@@ -1,26 +1,21 @@
 <?php
-	/*require_once('./core/view/view_school.php');
+	/*
+	require_once('./core/view/view_school.php');
 	require('./core/model/modal_user.php');
-	
-	if(!isset($_SESSION['uid']))
-	{
-		header("Location:index.php");
-		die();
-	}
-	$uid=$_SESSION['uid'];
 	$loc=modal_user::check_location($uid , 4);
 	if(!$loc)
 		{
 			echo mysql_error();
 			die();
-		}*/
+		}
+	*/
 	?>
 <!doctype html>
 <html>
 <head>
 {{HTML::style('assets/css/common.css')}}
-{{HTML::style('assets/css/common.css')}}
-{{HTML::script("http://code.jquery.com/jquery-1.7.1.min.js")}}
+{{HTML::style('assets/css/school.css')}}
+{{HTML::script('assets/js/jquery-1.9.0.min.js')}}
 {{HTML::script('assets/js/turn.min.js')}}
 		<script type="text/javascript">
 		$('#board').hide();
@@ -49,13 +44,6 @@
 					<?php 
 						/*echo view_school::checkForTimer();*/
 					?>
-					// $("#OK").live("click",function(e){
-						// $("#popup").css("display", "none");
-					// });
-					// $("#fail").live("click",function(e){
-						// $("#popup").css("display", "none");
-						// e.preventDefault();
-					// });
 					$(".lea").click(function(e){
 						 data="skill="+$(this).attr('id');
 						 $.post('./school.php',data , function(data){					
@@ -93,7 +81,8 @@
 		</script>
 </head>
 <body>
-	<?php /*include('hud.php')*/?>
+		@include('hud')
+		@include('show_avatar')
 		<div class="panel rightpanel">
 		<div id='logot'><a id='logout' href='rat_logout' title='logout'>
 		{{HTML::image('assets/images/icons/logout.png', 'logout', array('class' => 'smoothbig', 'width' => 50, 'height' => 50))}}
@@ -113,7 +102,7 @@
 		<div class="wait">
 			
 		</div>
-	</div>
+</div>
 	<div id="notify">
 		<div id="msg">
 		</div>
@@ -122,33 +111,35 @@
 
 <center>
 
-<div id="flipbook">
-	<div class="hard big own-size" id="hardfront1">
-		<h1><br/></h1>
-	</div>
-	<div class="hard big own-size " id="hardfront2">
-		 <?php
+	<div id="flipbook">
+		<div class="hard big own-size" id="hardfront1">
+			<h1>br/></h1>
+		</div>
+		<div class="hard big own-size " id="hardfront2">
+			<!-- {{HTML::image('assets/images/star.png', 'star', array('class' => 'learnt'))}} -->
+			<?php
 			/*$msg1=view_school::constellation();
 			$msg=explode('@',$msg1);
 			echo $msg[0]."</div><div style='background-image:url(img/pages/i.png)'>".$msg[1];*/
-		  ?>
-	</div>
-		<div style="background-image:url({{HTML::image('assets/images/pages/ii.png')}});"></div>
-	<div style="background-image:url({{HTML::image('assets/images/pages/01.png')}});">
-		<h1 class="chapter">Contents</h1>
-		<ul>
-			 <?php
-				/*echo view_school::show_all_skills();*/
-			 ?>
-		</ul>
-	</div>
-	<?php
+			?>
+		</div>
+		<div style="background-image:url('assets/images/pages/i.png');"></div>
+		<div style="background-image:url('assets/images/pages/ii.png');"></div>
+		<?php
 		/*echo view_school::show_info();*/
-	?>
-	<div style="background-image:url({{HTML::image('assets/images/pages/02.png')}});"></div>
-	<div class="hard big own-size fixed" id="hardback2"></div>
-	<div class="hard big own-size" id="hardback1"></div>
-</div>
+		?>
+		<div style="background-image:url('assets/images/pages/01.png');">
+			<h1 class="chapter">Contents</h1>
+			<ul>
+				@foreach ($skills as $skill)
+					{{ '<li>'.$skill->name.'</li>' }}
+				@endforeach
+			</ul>
+		</div>
+		<div style="background-image:url('assets/images/pages/01.png');"></div>
+		<div class="hard big own-size fixed" id="hardback2"></div>
+		<div class="hard big own-size" id="hardback1"></div>
+	</div>
 <div id="ok_again" >
 	
 </div>

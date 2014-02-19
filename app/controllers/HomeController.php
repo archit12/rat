@@ -31,7 +31,6 @@ class HomeController extends BaseController {
             if (Auth::attempt($credentials, true)) {
                 $this->ratuser->updateLoginStatus($credentials['emailid'], 1);
                 Session::put('uid', (new Rat_Users)->getDetails(Auth::user()->emailid)[0]['uid']);
-                //dd((new Rat_Users)->getDetails(Auth::user()->emailid)[0]['uid']);
                 return Redirect::route('map');
             }
             else {

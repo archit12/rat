@@ -12,9 +12,6 @@
 		{{ HTML::script('assets/js/jquery-ui-1.8.20.custom.min.js') }}				
 		<script>
 		$(document).ready(function(){
-			$("#i1").mouseover(function(e) {
-				//alert(e.pageX);
-			});
 			$("#consume").click(function() {PieMenuInit();});
 			$('#x').hide();
 			$('#board').hide();
@@ -94,7 +91,6 @@
 		</script>
 	</head>
 	<body>
-		<?/*php include('hud.php')*/?>
 		<div class="panel rightpanel">
 				<div id='outer_container' class="outer_container" >										
 						<a class="menu_button" href="#" title="Equip/Consume">{{HTML::image('assets/images/icons/equip.png', 'equip', array('class'=>'smoothbig','height'=>50,'width'=>50))}}</a>
@@ -110,11 +106,11 @@
 				
 		</div>
 		<div class="maparea">
-				@include('show_avatar')
-				@include('hud');
-			<a href="home">{{HTML::image('assets/images/house1.png', 'house', array('class'=>'places','id'=>'house1','title' => 'Process your materials here'))}}</a>
+			@include('hud')
+			@include('show_avatar')
+			<a href="residence">{{HTML::image('assets/images/house1.png', 'house', array('class'=>'places','id'=>'house1','title' => 'Process your materials here'))}}</a>
 			<a href="market">{{HTML::image('assets/images/market.png', 'market', array('class'=>'places','id'=>'market','title'=>'A central trade point. Meet other players here'))}}</a>
-			<a href="attainmenthall">{{HTML::image('assets/images/school.png', 'school', array('class'=>'places','id'=>'school','title'=>'Hone your skills here'))}}</a>
+			<a href="attainment_hall">{{HTML::image('assets/images/school.png', 'school', array('class'=>'places','id'=>'school','title'=>'Hone your skills here'))}}</a>
 		</div>
 		{{HTML::image('assets/images/marker.png', 'marker', array('class'=>'house1 marker'))}}
 		{{HTML::image('assets/images/marker.png', 'marker', array('class'=>'school marker', 'style' => 'display:none;'))}}

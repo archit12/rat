@@ -9,6 +9,11 @@ class Rat_User_Trait extends Eloquent {
 	protected $table = 'rat_user_traits';
 
 	public static function getAll($uid) {
-		return Rat_User_Trait::where('uid', '=', $uid)->get();
+		$traits = DB::table('rat_user_traits')
+        ->join('rat_traits', 'rat_user_traits.tid', '=', 'rat_traits.tid')
+        ->select('rat_user_traits.value', 'rat_traits.t_name', 'rat_traits.symbol')
+        ->where('rat_user_traits.uid', '=', $uid)
+        ->get();
+		 return $traits;
 	}
 }

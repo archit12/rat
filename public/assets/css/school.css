@@ -1,5 +1,5 @@
 body{
-	background-image:url(../img/school.jpg);
+	background-image:url(../images/school.jpg);
 	background-repeat:no-repeat;
 	background-color:#000;
 	overflow:hidden;
@@ -39,16 +39,16 @@ body{
 	
 }
 #hardfront1{
-	background-image:url(../img/pages/cover01.jpg);
+	background-image:url(../images/pages/cover01.jpg);
 }
 #hardfront2{
-	background-image:url(../img/pages/cover02.jpg);
+	background-image:url(../images/pages/cover02.png);
 }
 #hardback2{
-	background-image:url(../img/pages/cover03.jpg);
+	background-image:url(../images/pages/cover03.jpg);
 }
 #hardback1{
-	background-image:url(../img/pages/cover04.jpg);
+	background-image:url(../images/pages/cover04.jpg);
 }
 #archery4{
 	position:absolute;

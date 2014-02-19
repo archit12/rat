@@ -1,0 +1,1 @@
+residence.blade.php

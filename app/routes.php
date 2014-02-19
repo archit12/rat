@@ -21,11 +21,6 @@ Route::group(['before' => 'notLoggedIn'], function ()
         ));
 });
 
-Route::get('/hud', array(
-        'as' => 'hud',
-        'uses' => 'TraitsController@showTraits'
-));
-
 Route::post('/login', array (
     'as' => 'rat_user/login',
     'uses' => 'HomeController@postLogin'
@@ -36,10 +31,6 @@ Route::post('/register', array(
         'uses' => 'AvatarController@registerAvatar'
     ));
 
-Route::get('/rat_logout', array(
-        'as' => 'rat_logout',
-        'uses' => 'HomeController@rat_logout'
-    ));
 Route::get('/story', function() {
     return View::make('story');
     }
@@ -57,10 +48,39 @@ Route::group(['before' => 'auth'], function () {
         'uses' => 'MapController@showMap'
         ));
 
-    Route::get('/attainmenthall', function () {
-        return View::make('AttainmentHall/attainmentHall');
-    });
+    Route::get('/attainment_hall', array(
+        'as' => 'atainment_hall',
+        'uses' => 'AttainmentHallController@index'
+    ));
+
+    Route::get('/market', array(
+        'as' => 'market',
+        'uses' => 'MarketController@index'
+    ));
+
+    Route::get('/residence', array(
+        'as' => 'residence',
+        'uses' => 'ResidenceController@index'
+    ));
+
+    Route::get('/hud', array(
+        'as' => 'hud',
+        'uses' => 'TraitsController@showTraits'
+    ));
     
+
+    Route::get('/rat_logout', array(
+        'as' => 'rat_logout',
+        'uses' => 'HomeController@rat_logout'
+    ));
+
+
 });
 
+View::composer('hud', function($view){
+    $view->with(array('traits' => Rat_User_Trait::getAll(Session::get('uid'))));
+});
+View::composer('show_avatar', function($view){
+    $view->with(array('avatar' => AvatarController::setAvatar()));
+});
 ?>
