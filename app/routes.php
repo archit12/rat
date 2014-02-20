@@ -78,7 +78,9 @@ Route::group(['before' => 'auth'], function () {
 });
 
 View::composer('hud', function($view){
-    $view->with(array('traits' => Rat_User_Trait::getAll(Session::get('uid'))));
+    $money = Rat_User_Item::getMoney(Session::get('uid'));
+    $traits = Rat_User_Trait::getAll(Session::get('uid'));
+    $view->with(array('traits' => $traits, 'money' => $money));
 });
 View::composer('show_avatar', function($view){
     $view->with(array('avatar' => AvatarController::setAvatar()));

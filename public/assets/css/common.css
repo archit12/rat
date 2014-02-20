@@ -107,7 +107,7 @@ top: -50px;
 @font-face
  {
 	font-family: "My Custom Font";
-	src: url(../PiecesofEight.ttf) format("truetype" );
+	src: url(../fonts/PiecesofEight.ttf) format("truetype" );
  }
  @font-face
  {

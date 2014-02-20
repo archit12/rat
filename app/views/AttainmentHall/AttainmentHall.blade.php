@@ -113,17 +113,41 @@
 
 	<div id="flipbook">
 		<div class="hard big own-size" id="hardfront1">
-			<h1>br/></h1>
 		</div>
 		<div class="hard big own-size " id="hardfront2">
-			<!-- {{HTML::image('assets/images/star.png', 'star', array('class' => 'learnt'))}} -->
-			<?php
-			/*$msg1=view_school::constellation();
-			$msg=explode('@',$msg1);
-			echo $msg[0]."</div><div style='background-image:url(img/pages/i.png)'>".$msg[1];*/
-			?>
+			@foreach ($contents as $skill)
+				@for ($i=1; $i <= 4; $i++)
+					@if ($i <= $skill->level) 
+						@if(($skill->name == 'smithing' && $i != 4) || $skill->name != 'wisdom' )
+							{{ HTML::image('assets/images/stared.png', 'star', array('class' => 'learnt',
+										 'id' => "$skill->name"."$i",
+										 'title' => 'Level '.$i)) }}
+						@endif
+					@elseif($skill->name != 'wisdom')
+						{{ HTML::image('assets/images/stared.png', 'star', array('class' => 'learn',
+										 'id' => "$skill->name"."$i",
+										 'title' => 'Level '.$i)) }}
+					@endif
+				@endfor
+			@endforeach		
 		</div>
-		<div style="background-image:url('assets/images/pages/i.png');"></div>
+		<div style="background-image:url('assets/images/pages/i.png');">
+			@foreach ($contents as $skill)
+				@for ($i=1; $i <= 4; $i++)
+					@if ($i <= $skill->level) 
+						@if(($skill->name == 'smithing' && $i == 4) || $skill->name == 'wisdom' )
+							{{ HTML::image('assets/images/stared.png', 'star', array('class' => 'learnt',
+										 'id' => "$skill->name"."$i",
+										 'title' => 'Level '.$i)) }}
+						@endif
+					@elseif($skill->name == 'wisdom' || $skill->name == 'smithing')
+						{{ HTML::image('assets/images/stared.png', 'star', array('class' => 'learn',
+										 'id' => "$skill->name"."$i",
+										 'title' => 'Level '.$i)) }}
+					@endif
+				@endfor
+			@endforeach
+		</div>
 		<div style="background-image:url('assets/images/pages/ii.png');"></div>
 		<?php
 		/*echo view_school::show_info();*/
@@ -131,11 +155,30 @@
 		<div style="background-image:url('assets/images/pages/01.png');">
 			<h1 class="chapter">Contents</h1>
 			<ul>
-				@foreach ($skills as $skill)
-					{{ '<li>'.$skill->name.'</li>' }}
+				@foreach ($contents as $content)
+					<li>
+					<a href="#{{ $content->name }}" onclick="jump('{{$content->name}}')">{{ $content->name }}</a>
+					</li>
 				@endforeach
 			</ul>
 		</div>
+			@foreach ($contents as $content)
+				<div style="background-image:url('assets/images/pages/02.png');">
+					<p class="aboutskill">{{ $content->text }}</p>
+					<p class="aboutskill"><span style="color:black;display: block;">current level</span><span class="level">{{ $content->level }}</span></p>
+				</div>
+				<div style="background-image:url('assets/images/pages/01.png');">
+					<h1 class="chapter">{{ $content->name }}</h1>
+					{{ HTML::image($content->url, $content->name, array('class'=>'skillicon')) }} <br/><br />
+					<span class="upgrade">
+					@if ($content->level != 4)
+						<a href="#" style="color:green" class="lea">Learn</a>
+					@else
+						<a style="color:green" class="lea">Completed</a>
+					@endif
+					</span>
+				</div>
+			@endforeach
 		<div style="background-image:url('assets/images/pages/01.png');"></div>
 		<div class="hard big own-size fixed" id="hardback2"></div>
 		<div class="hard big own-size" id="hardback1"></div>
@@ -173,11 +216,11 @@
 	});
 	function jump(id){
 		var page = new Array();
-		page['alchemy']=8;
-		page['warcraft']=12;
-		page['farming']=6;
-		page['smithing']=10;
-		page['wisdom']=14;
+		page['alchemy']=11;
+		page['warcraft']=7;
+		page['farming']=9;
+		page['smithing']=13;
+		page['wisdom']=15;
 		$("#flipbook").turn("page", page[id]);
 	}
 </script>

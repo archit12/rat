@@ -50,32 +50,32 @@ body{
 #hardback1{
 	background-image:url(../images/pages/cover04.jpg);
 }
-#archery4{
+#warcraft1{
 	position:absolute;
 	top: 380px;
 	left: 96px;
 }
-#archery1{
+#warcraft2{
 	position:absolute;
 	top: 316px;
 	left: 119px;
 }
-#archery2{
+#warcraft3{
 	position:absolute;
 	top: 315px;
 	left: 162px;
 }
-#archery3{
+#warcraft4{
 	position:absolute;
 	top: 359px;
 	left: 163px;
 }
-#farming4{
+#farming1{
 	position: absolute;
 	top: 182px;
 	left: 153px;
 }
-#farming1{
+#farming3{
 	position: absolute;
 	top: 132px;
 	left: 153px;
@@ -85,27 +85,27 @@ body{
 	top: 151px;
 	left: 106px;
 }
-#farming3{
+#farming4{
 	position: absolute;
 	top: 147px;
 	left: 201px;
 }
-#smithing4{
+#smithing3{
 	position: absolute;
 	top: 67px;
 left: 375px;
 }
-#smithing1{
+#smithing2{
 	position: absolute;
 	top: 145px;
 	left: 396px;
 }
-#smithing2{
+#smithing1{
 	position: absolute;
 	top: 125px;
 	left: 334px;
 }
-#alchemy4{
+#alchemy2{
 	position: absolute;
 	top: 365px;
 	left: 367px;
@@ -115,7 +115,7 @@ left: 375px;
 	top: 370px;
 	left: 299px;
 }
-#alchemy2{
+#alchemy4{
 	position: absolute;
 	top: 272px;
 	left: 322px;
@@ -125,27 +125,27 @@ left: 375px;
 	top: 331px;
 	left: 330px;
 }
-#smithing3{
+#smithing4{
 	position: absolute;
 	top: 96px;
 	left: -6px;
 }
-#wisdom4{
+#wisdom2{
 	position: absolute;
 	top: 286px;
 	left: 179px;
 }
-#wisdom1{
+#wisdom3{
 	position: absolute;
 	top: 302px;
 	left: 222px;
 }
-#wisdom2{
+#wisdom4{
 	position: absolute;
 	top: 345px;
 	left: 238px;
 }
-#wisdom3{
+#wisdom1{
 	position: absolute;
 	top: 359px;
 	left: 144px;
@@ -168,7 +168,7 @@ left: 375px;
 }
 @font-face{
 	font-family: "My Custom Font";
-	src: url(../PiecesofEight.ttf) format("truetype" );
+	src: url(../fonts/PiecesofEight.ttf) format("truetype" );
  }
  #flipbook{
 	font-family: "My Custom Font";

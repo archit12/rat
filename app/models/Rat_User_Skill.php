@@ -15,5 +15,15 @@ class Rat_User_Skill extends Eloquent
         ->get();
 		 return $skills;
 	}
+	public static function getBookContents($uid)
+	{
+		$contents = DB::select(DB::raw('SELECT `text`, name, level, url
+							FROM rat_skill_info, rat_user_skills, rat_skills
+							WHERE `rat_user_skills`.`uid` ='.$uid.'
+							AND rat_user_skills.level = rat_skill_info.lvl
+							AND rat_user_skills.sk_id = rat_skill_info.sk_id
+							AND rat_skills.id = rat_user_skills.sk_id'));
+		return $contents;
+	}
 }
 ?>
