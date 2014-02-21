@@ -10,7 +10,7 @@
 		}
 	*/
 	?>
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
 {{HTML::style('assets/css/common.css')}}
@@ -216,10 +216,10 @@
 	});
 	function jump(id){
 		var page = new Array();
-		page['alchemy']=11;
-		page['warcraft']=7;
-		page['farming']=9;
-		page['smithing']=13;
+		page['alchemy']=9;
+		page['warcraft']=13;
+		page['farming']=7;
+		page['smithing']=11;
 		page['wisdom']=15;
 		$("#flipbook").turn("page", page[id]);
 	}
