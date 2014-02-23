@@ -41,42 +41,11 @@
 				$(document).ready(function(){
 					$('#board').hide();
 
-					<?php 
-						/*echo view_school::checkForTimer();*/
-					?>
-					$(".lea").click(function(e){
-						 data="skill="+$(this).attr('id');
-						 $.post('./school.php',data , function(data){					
-							if(data.length!=0)
-								{
-									if(data==1)
-										notify("Skill Learnt succesfully. You can not learn any skill for some time now. You can move to the map now",5000,"attainmenthall.php");
-									else if(data==2)
-										notify("Some of the items required for this skill are missing.You need to gather them and come back to school");
-									else if(data==3)
-										notify("You cannot learn the next skill for certain period of time.Come back later");
-									else if(data==4)
-										notify("You need to attain a higher level of wisdom to learn this skill. Upgrade your Wisdom first");
-									else if(data==5)
-										notify("Maximam level of the skill achieved..");
-								}
-						 });
-						setTimeout(function(){ $.post('./school.php','update_trait=update',function(data){
-							if(data.length!=0)
-							{
-								$('#traits_bar').html("<center>"+data+"<center>");
-							}
-						 })},100);
-										e.preventDefault();
-									});
-									$('#leader').click(function(){
-
-							//$('#board').show();
+					$('.lea').click(function(event) {
+						$.post('learnSkill', data: {'skill': ''}, function(data, textStatus, xhr) {
+							/*optional stuff to do after success */
 						});
-						$('#close').click(function(){
-
-							$('#board').hide();
-						});
+					});
 				});
 		</script>
 </head>

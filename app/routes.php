@@ -8,7 +8,14 @@ Route::filter('notLoggedIn', function()
     }
 });
 
-Route::group(['before' => 'notLoggedIn'], function ()
+Route::filter('sessionSet', function(){
+    if(!Session::has('uid')) {
+        Session::flush();
+        return Redirect::route('login');
+    }
+});
+
+Route::group(['before' => 'notLoggedIn|sessionSet'], function ()
 {
     Route::get('/', array (
         'as' => 'showLogin',
@@ -43,6 +50,7 @@ Route::get('/avatar', array(
         ));
         
 Route::group(['before' => 'auth'], function () {
+
     Route::get('/map', array(
         'as' => 'map',
         'uses' => 'MapController@showMap'
