@@ -10,7 +10,7 @@ class Rat_User_Skill extends Eloquent
 	{
 		$skills = DB::table('rat_user_skills')
         ->join('rat_skills', 'rat_skills.id', '=', 'rat_user_skills.sk_id')
-        ->select('rat_skills.name', 'rat_user_skills.level')
+        ->select('rat_skills.name', 'rat_user_skills.level', 'rat_skills.id')
         ->where('rat_user_skills.uid', '=', $uid)
         ->get();
 		 return $skills;

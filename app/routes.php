@@ -15,7 +15,7 @@ Route::filter('sessionSet', function(){
     }
 });
 
-Route::group(['before' => 'notLoggedIn|sessionSet'], function ()
+Route::group(['before' => 'notLoggedIn'], function ()
 {
     Route::get('/', array (
         'as' => 'showLogin',

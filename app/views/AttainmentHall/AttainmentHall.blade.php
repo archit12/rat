@@ -141,7 +141,7 @@
 					{{ HTML::image($content->url, $content->name, array('class'=>'skillicon')) }} <br/><br />
 					<span class="upgrade">
 					@if ($content->level != 4)
-						<a href="#" style="color:green" class="lea">Learn</a>
+						<a href="#" style="color:green" class="lea" id="{{ $content->name }}">Learn</a>
 					@else
 						<a style="color:green" class="lea">Completed</a>
 					@endif
