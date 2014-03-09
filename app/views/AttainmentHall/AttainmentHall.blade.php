@@ -32,8 +32,11 @@
 					if (data == 1) {
 						 notify("Skill Learnt");
 					}
-				 	else {
+				 	else if (data == 0) {
 				 		notify("You do not have the required items to learn this skill");
+				 	}
+				 	else {
+				 		notify("Failed! Reload and then retry.");
 				 	}
 				},
 			});

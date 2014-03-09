@@ -29,27 +29,24 @@ class Skill implements SkillInterface
     					}
     					else {
     						//error ocured
-    						echo 0;
     						throw new Exception("Error Processing Request", 1);
     					}
     				}
     				else {
     					// display that not enough resources
     					echo 0;
-    					throw new Exception("Error Processing Request", 1);
     				}
     			}
     			else {
-    				echo 0;
     				throw new Exception("Error Processing Request", 1);
     			}
     		}
     		else {
-    			echo 0;
     			throw new Exception("Error Processing Request", 1);
     		}
     	}
     	catch(Exception $e) {
+    		echo 2;
     		DB::rollback();
     	}
 	}
