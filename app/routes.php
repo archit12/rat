@@ -1,5 +1,14 @@
 <?php
 
+App::bind('SkillInterface', 'Skill');
+
+//for testing
+//---------------------------------- remove in production ----------------------//
+
+Route::get('check', 'AttainmentHallController@check');
+
+//----------------------------------        end           ----------------------//
+
 Route::filter('notLoggedIn', function()
 {
     if (Auth::check())

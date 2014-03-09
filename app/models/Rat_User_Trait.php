@@ -3,7 +3,7 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
 class Rat_User_Trait extends Eloquent {
-
+	public $timestamps = false;
 	protected $guarded = array();
 	
 	protected $table = 'rat_user_traits';

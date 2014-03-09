@@ -9,7 +9,7 @@
 			die();
 		}
 	*/
-	?>
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,14 +19,18 @@
 {{HTML::script('assets/js/turn.min.js')}}
 		<script type="text/javascript">
 		$('#board').hide();
-		function initTimer(t){
+		$(window).on('beforeunload', function(){
+			console.log("ok");
+        	return "You will be logged out!";
+     	});
+		/*function initTimer(t){
 					$(".container").show();
 					$(".wait").animate(	{width:$(".container").width()},t*1000);
 					setTimeout(function(){$(".container").fadeOut(1000);},t*1000);
 		}
 		function notify(msg,timeout,redirectTo){
 			timeout = typeof timeout !== 'undefined' ? timeout : 5000;
-			redirectTo = typeof redirectTo !== 'undefined' ? redirectTo : "";
+			redirectTo = (typeof redirectTo !== 'undefined') ? redirectTo : "";
 			$("#notify #msg").html(msg);
 			$("#notify").fadeIn(500);
 			setTimeout(function(){$("#notify").fadeOut(1000);},timeout);
@@ -37,16 +41,16 @@
 				});
 				setTimeout(function(){$(location).attr("href","map")},timeout);
 			}
-		}
-				$(document).ready(function(){
+		}*/
+				/*$(document).ready(function(){
 					$('#board').hide();
 
 					$('.lea').click(function(event) {
 						$.post('learnSkill', data: {'skill': ''}, function(data, textStatus, xhr) {
 							/*optional stuff to do after success */
-						});
+						/*});
 					});
-				});
+				});*/
 		</script>
 </head>
 <body>
@@ -86,17 +90,22 @@
 		<div class="hard big own-size " id="hardfront2">
 			@foreach ($contents as $skill)
 				@for ($i=1; $i <= 4; $i++)
+				
+					
+					@if (!($skill->name == 'smithing' && $i == 4) && ($skill->name != 'wisdom') ) 
 					@if ($i <= $skill->level) 
-						@if(($skill->name == 'smithing' && $i != 4) || $skill->name != 'wisdom' )
 							{{ HTML::image('assets/images/stared.png', 'star', array('class' => 'learnt',
 										 'id' => "$skill->name"."$i",
 										 'title' => 'Level '.$i)) }}
-						@endif
+
 					@elseif($skill->name != 'wisdom')
 						{{ HTML::image('assets/images/stared.png', 'star', array('class' => 'learn',
 										 'id' => "$skill->name"."$i",
-										 'title' => 'Level '.$i)) }}
+										 'title' => 'Level '.$i)) }}			 
 					@endif
+					@endif
+					
+					
 				@endfor
 			@endforeach		
 		</div>
@@ -149,7 +158,7 @@
 				</div>
 			@endforeach
 		<div style="background-image:url('assets/images/pages/01.png');"></div>
-		<div class="hard big own-size fixed" id="hardback2"></div>
+		<div class="hard big own-size fixed" id="hardback2"><h1 style="margin-top: 50%;">The End</h1></div>
 		<div class="hard big own-size" id="hardback1"></div>
 	</div>
 <div id="ok_again" >
