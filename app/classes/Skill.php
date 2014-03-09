@@ -21,8 +21,10 @@ class Skill implements SkillInterface
     				//checking whether User items fit the required items
     				if (Skill::compareRequirements($requirements)) {
     					//deduct the required items from user inventory
+    					DB::beginTransaction();
     					if(Skill::deductItems($requirements)) {
     						Skill::increaseSkill($skill_id);
+    						DB::commit();
     						echo 1;
     					}
     					else {
@@ -34,6 +36,7 @@ class Skill implements SkillInterface
     				else {
     					// display that not enough resources
     					echo 0;
+    					throw new Exception("Error Processing Request", 1);
     				}
     			}
     			else {
@@ -47,7 +50,7 @@ class Skill implements SkillInterface
     		}
     	}
     	catch(Exception $e) {
-    		return "invalid";
+    		DB::rollback();
     	}
 	}
 
@@ -130,9 +133,15 @@ class Skill implements SkillInterface
 		if (array_key_exists(0, $total_money)) {
 			$total_money = $total_money[0]->qty;
 		}
+		else {
+			return 0;
+		}
 		$money_on_person = Rat_User_Current_Item::getMoney(Session::get('uid'));
 		if (array_key_exists(0, $money_on_person)) {
 			$money_on_person = $money_on_person[0]->qty;
+		}
+		else {
+			return 0;
 		}
 		if (intval($money_on_person) > intval($total_money)) {
 			if(Rat_User_Current_Item::deductMoney(Session::get('uid'), $total_money)) {
