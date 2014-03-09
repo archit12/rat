@@ -12,7 +12,12 @@ class Rat_Users extends Eloquent implements UserInterface, RemindableInterface {
 	public function updateLoginStatus($emailid,$status)
 	{
 		Rat_Users::where('emailid','=',$emailid)->update(array('logged' => $status));
-	}	
+	}
+
+	public static function setLocation($uid, $location) {
+		Rat_Users::where('uid', $uid)
+		->update(array('location' => $location));
+	}
 
 	public function register($data_avatar, $details) {				
 		try {

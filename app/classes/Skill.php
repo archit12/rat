@@ -1,11 +1,14 @@
 <?php
 class Skill implements SkillInterface
 {
-	public function __construct(Rat_User_Skill $skill) {
+	
+	public function __construct(Rat_User_Skill $skill) 
+	{
 		$this->skill = new Rat_User_Skill;
 	}
 
-	public static function learnSkill($skill_id) {
+	public static function learnSkill($skill_id)
+	{
 		try {
 			//checking if skill_id is in range
     		if ($this->skill->isValid($skill_id)) {
@@ -20,7 +23,7 @@ class Skill implements SkillInterface
     				//checking whether User items fit the required items
     				if (Skill::compareRequirements($requirements)) {
     					//deduct the required items from user inventory
-    					if(deductItems($requirements)) {
+    					if(Skill::deductItems($requirements)) {
     						//increase skill
     						$new_level = $current_level + 1;
     						Skill::increaseSkill( $uid, $skill_id, $new_level );
@@ -49,19 +52,50 @@ class Skill implements SkillInterface
     	}
 	}
 
-	public static function compareRequirements($requirements) {
-		$transaction_valid = true;
+	public static function compareRequirements($requirements) 
+	{
+		$transaction_valid = false;
 		$item_ids = Skill::getItemIds($requirements);
 		$user_items = Rat_User_Item::getQuantity($uid, $item_ids);
-		//get each requirement
-		foreach ($requirements as $requirement) {
-			//for each requirement get 
-			foreach ($requirement as $item_id => $require) {
-				foreach ($user_items as $user_item) {
-					if ($user_item[$key] >= $require) {
-						$transaction_valid = false;
-					}
+    	//for convenience
+    	$requirements_min = array();
+    	$user_items_min = array();
+
+    	//generate minified array of requirements
+    	foreach ($requirements as $requirement) {
+    		$required_item_id = object_get($requirement, 'it_id');
+    		$required_item_qty = object_get($requirement, 'require');
+    		$requirements_min[$required_item_id] = $required_item_qty;
+		}
+
+		//generate minified array of user_items
+		foreach ($user_items as $user_item) {
+    		$user_item_id = object_get($user_item, 'it_id');
+    		$user_item_qty = object_get($user_item, 'qty');
+    		$user_items_min[$user_item_id] = $user_item_qty;
+		}
+
+		//compare the required item quantities
+		foreach ($requirements_min as $it_id => $qty) {
+
+			//if required it_id exists in user_items then compare quantity else exit
+			if (array_key_exists($it_id, $user_items_min)) {
+				$transaction_valid = true;
+				
+				//if item quantity is less than required then exit
+				if ($user_items_min[$it_id] < $qty) {
+					///echo $it_id."-";
+					$transaction_valid = false;
+					break;
 				}
+				/*else{
+					echo $it_id."+=";
+				}*/
+			}
+			else {
+				//echo $it_id."/";
+				$transaction_valid = false;
+				break;
 			}
 		}
 		return $transaction_valid;
@@ -80,11 +114,13 @@ class Skill implements SkillInterface
 		return $item_ids;
 	}
 
-	public static function deductItems($items) {
+	public static function deductItems($items) 
+	{
 
 	}
 
-	public static function increaseSkill($skill_id) {
+	public static function increaseSkill($skill_id) 
+	{
 
 	}
 }
