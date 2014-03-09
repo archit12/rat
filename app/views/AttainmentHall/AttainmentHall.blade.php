@@ -23,7 +23,22 @@
 			console.log("ok");
         	return "You will be logged out!";
      	});
-		/*function initTimer(t){
+     	function learnSkill(skill) {
+	     		$.ajax({
+				'url': 'learn',
+				'type' : 'post',
+				'data' : {'skill' : skill},
+				'success': function (data) {						 
+					if (data == 1) {
+						 notify("Skill Learnt");
+					}
+				 	else {
+				 		notify("You do not have the required items to learn this skill");
+				 	}
+				},
+			});
+     	}
+		function initTimer(t){
 					$(".container").show();
 					$(".wait").animate(	{width:$(".container").width()},t*1000);
 					setTimeout(function(){$(".container").fadeOut(1000);},t*1000);
@@ -41,7 +56,7 @@
 				});
 				setTimeout(function(){$(location).attr("href","map")},timeout);
 			}
-		}*/
+		}
 				/*$(document).ready(function(){
 					$('#board').hide();
 
@@ -150,7 +165,7 @@
 					{{ HTML::image($content->url, $content->name, array('class'=>'skillicon')) }} <br/><br />
 					<span class="upgrade">
 					@if ($content->level != 4)
-						<a href="#" style="color:green" class="lea" id="{{ $content->name }}">Learn</a>
+						<a href="#" style="color:green" class="lea" id="{{ $content->sk_id }}" onclick="learnSkill({{ $content->sk_id }})">Learn</a>
 					@else
 						<a style="color:green" class="lea">Completed</a>
 					@endif

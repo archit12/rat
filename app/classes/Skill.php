@@ -1,49 +1,48 @@
 <?php
 class Skill implements SkillInterface
 {
-	
-	public function __construct(Rat_User_Skill $skill) 
-	{
-		$this->skill = new Rat_User_Skill;
-	}
-
 	public static function learnSkill($skill_id)
 	{
 		try {
 			//checking if skill_id is in range
-    		if ($this->skill->isValid($skill_id)) {
-
+    		if (Rat_User_Skill::isValid($skill_id)) {
     			//get current level of the skill
-    			$current_level = $this->skill->getCurrentLevel(Session::get('uid'), $skill_id);
+    			$current_level = Rat_User_Skill::getCurrentLevel(Session::get('uid'), $skill_id);
+    			if (array_key_exists(0, $current_level)) {
+    				$current_level = $current_level[0]->level;
+    			}
+    			else {
+    				throw new Exception("Error Processing Request", 1);
+    			}
 
     			if ($current_level < 4) {
     				//fetching the required items for learning the skill
-    				$requirements = $this->skill->getRequirements($skill_id, $current_level);
-
+    				$requirements = Rat_User_Skill::getRequirements($skill_id, $current_level);
     				//checking whether User items fit the required items
     				if (Skill::compareRequirements($requirements)) {
     					//deduct the required items from user inventory
     					if(Skill::deductItems($requirements)) {
-    						//increase skill
-    						$new_level = $current_level + 1;
-    						Skill::increaseSkill( $uid, $skill_id, $new_level );
-    						echo "1";
+    						Skill::increaseSkill($skill_id);
+    						echo 1;
     					}
     					else {
     						//error ocured
+    						echo 0;
     						throw new Exception("Error Processing Request", 1);
     					}
     				}
     				else {
     					// display that not enough resources
-    					echo "0";
+    					echo 0;
     				}
     			}
     			else {
+    				echo 0;
     				throw new Exception("Error Processing Request", 1);
     			}
     		}
     		else {
+    			echo 0;
     			throw new Exception("Error Processing Request", 1);
     		}
     	}
@@ -56,7 +55,13 @@ class Skill implements SkillInterface
 	{
 		$transaction_valid = false;
 		$item_ids = Skill::getItemIds($requirements);
-		$user_items = Rat_User_Item::getQuantity($uid, $item_ids);
+		/*echo "item ids list: ";
+		print_r($item_ids);
+		echo "<br>";*/
+		$user_items = Rat_User_Item::getQuantity(Session::get('uid'), $item_ids);
+		/*echo "user items list: ";
+		print_r($user_items);
+		echo "<br>";*/
     	//for convenience
     	$requirements_min = array();
     	$user_items_min = array();
@@ -81,10 +86,10 @@ class Skill implements SkillInterface
 			//if required it_id exists in user_items then compare quantity else exit
 			if (array_key_exists($it_id, $user_items_min)) {
 				$transaction_valid = true;
-				
+
 				//if item quantity is less than required then exit
 				if ($user_items_min[$it_id] < $qty) {
-					///echo $it_id."-";
+					//echo $it_id."-";
 					$transaction_valid = false;
 					break;
 				}
@@ -116,11 +121,32 @@ class Skill implements SkillInterface
 
 	public static function deductItems($items) 
 	{
-
+		foreach ($items as $item) {
+			if(!Rat_User_Item::deductItem(Session::get('uid'), $item->it_id, $item->require)){
+				return 0;
+			}
+		}
+		$total_money = Rat_User_Item::getMoney(Session::get('uid'));
+		if (array_key_exists(0, $total_money)) {
+			$total_money = $total_money[0]->qty;
+		}
+		$money_on_person = Rat_User_Current_Item::getMoney(Session::get('uid'));
+		if (array_key_exists(0, $money_on_person)) {
+			$money_on_person = $money_on_person[0]->qty;
+		}
+		if (intval($money_on_person) > intval($total_money)) {
+			if(Rat_User_Current_Item::deductMoney(Session::get('uid'), $total_money)) {
+				return 1;
+			}
+			else {
+				return 0;
+			}
+		}
+		return 1;
 	}
 
-	public static function increaseSkill($skill_id) 
+	public static function increaseSkill($skill_id)
 	{
-
+		Rat_User_Skill::incrementLevel(Session::get('uid'), $skill_id);
 	}
 }

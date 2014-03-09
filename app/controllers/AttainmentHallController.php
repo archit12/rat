@@ -26,12 +26,18 @@ class AttainmentHallController extends BaseController implements ControllerLocat
     }
 
     public function check() {
-    	$requirements = Rat_User_Skill::getRequirements(4, 3);
-    	$user_items = Rat_User_Item::getQuantity(7, array(2, 27, 23));
+    	// $requirements = Rat_User_Skill::getRequirements(4, 1);
+    	// $user_items = Rat_User_Item::getQuantity(7, array(2, 27, 23));
+        // $skill_id = 1;
+        // $this->skill->learnSkill($skill_id);
+        // $current = Rat_User_Current_Item::getMoney(Session::get('uid'));
+        // print_r($current);
+        // echo $current[0]->qty;
+        //Rat_User_Current_Item::deductMoney(7, 500);
     }
 
     public static function changeLocation() {
-    	Rat_Users::setLocation(1);
+    	Rat_Users::setLocation(Session::get('uid') ,1);
     } 
 }
 ?>

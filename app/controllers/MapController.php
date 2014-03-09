@@ -10,6 +10,6 @@ class MapController extends BaseController implements ControllerLocationInterfac
 
 	public static function changeLocation()
 	{
-		Rat_Users::setLocation(0);
+		Rat_Users::setLocation(Session::get('uid') ,0);
 	}
 }

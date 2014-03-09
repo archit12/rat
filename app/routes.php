@@ -85,6 +85,10 @@ Route::group(['before' => 'auth'], function () {
         'uses' => 'TraitsController@showTraits'
     ));
     
+    Route::post('/learn', array(
+        'as' => 'learn',
+        'uses' => 'AttainmentHallController@learnSkill'
+    ));
 
     Route::get('/rat_logout', array(
         'as' => 'rat_logout',

@@ -1,6 +1,7 @@
 <?php
 class Rat_User_Item extends Eloquent {
 	public $timestamps = false;
+	protected $table = 'rat_user_items';
 
 	public static function getAll($uid) {
 		$items = DB::table('rat_user_items')
@@ -26,5 +27,11 @@ class Rat_User_Item extends Eloquent {
 		->whereIn('rat_user_items.it_id', $item_ids)
 		->get();
 		return $items;
+	}
+
+	public static function deductItem($uid, $item_id, $qty) {
+		return Rat_User_Item::where('uid', $uid)
+		->where('it_id', $item_id)
+		->decrement('qty', $qty);
 	}
 }

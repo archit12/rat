@@ -42,7 +42,7 @@ class Rat_User_Skill extends Eloquent
 	//get all contents of the Book
 	public static function getBookContents($uid)
 	{
-		$contents = DB::select(DB::raw('SELECT `text`, name, level, url
+		$contents = DB::select(DB::raw('SELECT `text`, name, level, url, `rat_user_skills`.`sk_id`
 							FROM rat_skill_info, rat_user_skills, rat_skills
 							WHERE `rat_user_skills`.`uid` ='.$uid.'
 							AND rat_user_skills.level = rat_skill_info.lvl
@@ -60,7 +60,10 @@ class Rat_User_Skill extends Eloquent
 
 	public static function getCurrentLevel($uid, $skill_id)
 	{
-		$level = Rat_User_Skill::whereRaw(' uid = ? AND sk_id = ? ', array($uid, $skill_id))->get('level');
+		$level = DB::table('rat_user_skills')
+		->select(array('level'))
+		->whereRaw(' uid = ? AND sk_id = ? ', array($uid, $skill_id))
+		->get();
 		return $level;
 	}
 
@@ -73,9 +76,10 @@ class Rat_User_Skill extends Eloquent
 		return $requirements;
 	}
 
-	public static function incrementLevel($uid, $skill_id, $new_level) 
+	public static function incrementLevel($uid, $skill_id) 
 	{
-		$done = Rat_User_Skill::whereRaw('uid = ? AND sk_id = ? ', array($uid, $skill_id))->update(array('level' => $new_level));
+		$done = Rat_User_Skill::whereRaw('uid = ? AND sk_id = ? ', array($uid, $skill_id))
+		->increment('level');
 		return $done;
 	}
 }
