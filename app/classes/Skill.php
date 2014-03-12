@@ -19,13 +19,17 @@ class Skill implements SkillInterface
     				//fetching the required items for learning the skill
     				$requirements = Rat_User_Skill::getRequirements($skill_id, $current_level);
     				//checking whether User items fit the required items
-    				if (Skill::compareRequirements($requirements)) {
+    				if (Skill::compareRequirements($requirements, $skill_id, $current_level)) {
     					//deduct the required items from user inventory
     					DB::beginTransaction();
     					if(Skill::deductItems($requirements)) {
-    						Skill::increaseSkill($skill_id);
-    						DB::commit();
-    						echo 1;
+							if (Skill::increaseSkill($skill_id)) {
+								echo 1;
+								DB::commit();
+							}
+							else {
+								throw new Exception("Error Processing Request", 1);
+							}
     					}
     					else {
     						//error ocured
@@ -51,10 +55,54 @@ class Skill implements SkillInterface
     	}
 	}
 
-	public static function compareRequirements($requirements) 
+	public static function checkTime($skill_id)
 	{
+		date_default_timezone_set('India/New_Delhi');
+		$learnt_time = Rat_User_Skill::getTime(Session::get('uid'), $skill_id);
+		if (array_key_exists(0, $learnt_time)) {
+            $learnt_time = $learnt_time[0]->time;
+        }
+		$current_time = new DateTime();
+	}
+
+	public static function isWisdom($skill_id) {
+		$isWisdom = false;
+		$skills = Rat_User_Skill::getAllIds();
+		foreach ($skills as $skill) {
+			if ('wisdom' == $skill->name) {
+				if ($skill_id == $skill->id) {
+					$isWisdom = true;
+				}
+			}
+		}
+		return $isWisdom;
+	}
+
+	public static function compareRequirements($requirements, $skill_id, $current_level) 
+	{
+		//control for whether items requirement is met
 		$transaction_valid = false;
+		//control for whether wisdom requirement is met (if required)
+		$wisdom_valid = false;
 		$item_ids = Skill::getItemIds($requirements);
+		if (!Skill::isWisdom($skill_id)) {
+			$wisdom = Rat_User_Skill::getWisdom(Session::get('uid'))->toArray();
+	        if (array_key_exists(0, $wisdom)) {
+	            $wisdom = $wisdom[0]['level'];
+	        }
+			if ($wisdom > $current_level) {
+				//wisdom level is acceptable
+				$wisdom_valid = true;
+			}
+			else {
+				//wisdom level is not acceptable
+				$wisdom_valid = false;
+			}
+		}
+		else {
+			//wisdom level not required as the skill to be learnt is wisdom itself
+			$wisdom_valid = true;
+		}
 		/*echo "item ids list: ";
 		print_r($item_ids);
 		echo "<br>";*/
@@ -103,7 +151,7 @@ class Skill implements SkillInterface
 				break;
 			}
 		}
-		return $transaction_valid;
+		return ($wisdom_valid && $transaction_valid);
 	}
 
 	public static function getItemIds($requirements)
@@ -153,6 +201,11 @@ class Skill implements SkillInterface
 
 	public static function increaseSkill($skill_id)
 	{
-		Rat_User_Skill::incrementLevel(Session::get('uid'), $skill_id);
+		if (Rat_User_Skill::incrementLevel(Session::get('uid'), $skill_id)) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
 	}
 }

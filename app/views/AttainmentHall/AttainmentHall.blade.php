@@ -13,6 +13,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Attainment Hall | Reiches14</title>
 {{HTML::style('assets/css/common.css')}}
 {{HTML::style('assets/css/school.css')}}
 {{HTML::script('assets/js/jquery-1.9.0.min.js')}}
@@ -176,7 +177,7 @@
 				</div>
 			@endforeach
 		<div style="background-image:url('assets/images/pages/01.png');"></div>
-		<div class="hard big own-size fixed" id="hardback2"><h1 style="margin-top: 50%;">The End</h1></div>
+		<div class="hard big own-size fixed" id="hardback2"><h1 style="margin-top: 50%;opacity:0.6;">The End</h1></div>
 		<div class="hard big own-size" id="hardback1"></div>
 	</div>
 <div id="ok_again" >

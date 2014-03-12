@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+		<title>Map | Reiches14</title>
 		{{ HTML::script('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js') }}		
 		{{ HTML::style('assets/css/common.css') }}
 		{{ HTML::style('assets/css/map.css') }}

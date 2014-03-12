@@ -21,7 +21,7 @@ class Rat_User_Skill extends Eloquent
 	//gets the id of all skills
 	public static function getAllIds() {
 		$skills = DB::table('rat_skills')
-		->select('id')
+		->select('id', 'name')
 		->get();
 		return $skills;
 	}
@@ -53,8 +53,10 @@ class Rat_User_Skill extends Eloquent
 
 	public static function getWisdom($uid)
 	{
-		$skill_id = 5; //wisdom
-		$wisdom = Rat_User_Skill::whereRaw(' uid = ? AND sk_id = ? ', array($uid, $skill_id))->get('level');
+		$skill_id = 5;
+		$wisdom = Rat_User_Skill::whereRaw(' uid = ? AND sk_id = ? ', array($uid, $skill_id))
+		->select('level')
+		->get();
 		return $wisdom;
 	}
 
@@ -65,6 +67,15 @@ class Rat_User_Skill extends Eloquent
 		->whereRaw(' uid = ? AND sk_id = ? ', array($uid, $skill_id))
 		->get();
 		return $level;
+	}
+
+	public static function getTime($uid, $skill_id)
+	{
+		$time = DB::table('rat_user_skills')
+		->select('time')
+		->where('sk_id', $skill_id)
+		->get();
+		return $time;
 	}
 
 	//get the requirement of skill for user at current level

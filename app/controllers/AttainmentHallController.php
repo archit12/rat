@@ -34,10 +34,17 @@ class AttainmentHallController extends BaseController implements ControllerLocat
         // print_r($current);
         // echo $current[0]->qty;
         //Rat_User_Current_Item::deductMoney(7, 500);
+        date_default_timezone_set('Asia/Kolkata');
+        $current_time = new DateTime();
+        $old_time = new DateTime('2014-03-11 07:02:19');
+        print_r( $current_time->getTimeStamp() - $old_time->getTimeStamp());
+        print_r($current_time->diff($old_time));
+        //print_r($current_time->diff($old_time));
+        //echo $current_time->timezone;
     }
 
     public static function changeLocation() {
     	Rat_Users::setLocation(Session::get('uid') ,1);
-    } 
+    }
 }
 ?>
