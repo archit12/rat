@@ -26,21 +26,44 @@ class AttainmentHallController extends BaseController implements ControllerLocat
     }
 
     public function check() {
-    	// $requirements = Rat_User_Skill::getRequirements(4, 1);
-    	// $user_items = Rat_User_Item::getQuantity(7, array(2, 27, 23));
-        // $skill_id = 1;
-        // $this->skill->learnSkill($skill_id);
-        // $current = Rat_User_Current_Item::getMoney(Session::get('uid'));
-        // print_r($current);
-        // echo $current[0]->qty;
-        //Rat_User_Current_Item::deductMoney(7, 500);
-        date_default_timezone_set('Asia/Kolkata');
+
+        //echo Skill::checkTime(3,3);
+        Rat_User_Skill::setTime(7, 1);
+
+        /*date_default_timezone_set('Asia/Kolkata');
         $current_time = new DateTime();
-        $old_time = new DateTime('2014-03-11 07:02:19');
+        $current_time->format('H:i:s');
+        $learnt_time = Rat_User_Skill::getTime(7, 5);
+        if (array_key_exists(0, $learnt_time)) {
+            $learnt_time = $learnt_time[0]->time;
+        }
+                    $learnt_time = '00:00:00';
+                    $old_time = new DateTime($learnt_time);
+                    $old_time->format('H:i:s');
+                    print_r($old_time);
+                    echo "<br>";
+                    echo "old time->".$old_time->getTimeStamp();
+                    echo "<br>";
+                    echo $current_time->getTimeStamp();
+                    echo "<br>";
+                    echo $current_time->getTimeStamp() - $old_time->getTimeStamp();
+        $total_time = Rat_User_Skill::getTotalTime(5);
+        if (array_key_exists(0, $total_time)) {
+            $total_time = intval($total_time[0]->time);
+        }
+                    echo "<br>".$total_time*1000;
+                    die();
+        $total_time *= 1000;
+        $difference = $current_time->getTimeStamp() - $old_time->getTimeStamp();
+        if ($total_time > $difference) {
+            echo "not yet";
+        }
+        else {
+            echo "valid";
+        }
+        print_r($old_time);
         print_r( $current_time->getTimeStamp() - $old_time->getTimeStamp());
-        print_r($current_time->diff($old_time));
-        //print_r($current_time->diff($old_time));
-        //echo $current_time->timezone;
+        print_r($current_time->diff($old_time));*/
     }
 
     public static function changeLocation() {

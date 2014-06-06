@@ -1,5 +1,7 @@
 /bootstrap/compiled.php
 /vendor
+archit.sublime-workspace
+archit.sublime-project
 composer.phar
 composer.lock
 .env.local.php

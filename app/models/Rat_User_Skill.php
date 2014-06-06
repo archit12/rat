@@ -69,13 +69,47 @@ class Rat_User_Skill extends Eloquent
 		return $level;
 	}
 
+	public static function getRemainingTime() {
+		// get time when skill was learnt and subtratct it with the time required to learn the skill
+	}
+
 	public static function getTime($uid, $skill_id)
 	{
+		//get time when skill was learnt by the user
 		$time = DB::table('rat_user_skills')
 		->select('time')
+		->where('uid', $uid)
 		->where('sk_id', $skill_id)
 		->get();
 		return $time;
+	}
+
+	public static function getTotalTime($skill_id)
+	{
+		//get total time to learn the skill
+		$time = DB::table('rat_skills')
+		->select('time')
+		->where('id', '=' ,$skill_id)
+		->get();
+		return $time;
+	}
+
+	public static function setTime($uid, $skill_id)
+	{
+		$learnt_time = Rat_User_Skill::getTime($uid, $skill_id);
+		$total_time = Rat_User_Skill::getTotalTime($skill_id);
+		if (array_key_exists(0, $learnt_time)) {
+            $learnt_time = $learnt_time[0]->time;
+        }
+        if (array_key_exists(0, $total_time)) {
+            $total_time = intval($total_time[0]->time);
+        }
+        $total_time = $total_time * 2;
+        $time = (new DateTime($learnt_time))->add(new DateInterval('PT'.$total_time.'S'));
+        DB::table('rat_user_skills')
+        ->where('uid', $uid)
+        ->where('sk_id', $skill_id)
+        ->update(array('time' => $time->format('y-m-d h:i:s')));
 	}
 
 	//get the requirement of skill for user at current level
