@@ -19,22 +19,32 @@
 {{HTML::script('assets/js/jquery-1.9.0.min.js')}}
 {{HTML::script('assets/js/turn.min.js')}}
 		<script type="text/javascript">
+		$(window).on('load', function() {
+			initTimer({{$timer}});
+		});
 		$('#board').hide();
+
 		$(window).on('beforeunload', function(){
 			console.log("ok");
         	return "You will be logged out!";
      	});
+
      	function learnSkill(skill) {
 	     		$.ajax({
 				'url': 'learn',
 				'type' : 'post',
 				'data' : {'skill' : skill},
-				'success': function (data) {						 
-					if (data == 1) {
-						 notify("Skill Learnt");
+				'success': function (data) {
+					data = JSON.parse(data);	 
+					if (data['result'] == 1) {
+						notify("Skill Learnt");
+						initTimer(data['time']);
 					}
-				 	else if (data == 0) {
+				 	else if (data['result'] == 0 && data['time'] == 1) {
 				 		notify("You do not have the required items to learn this skill");
+				 	}
+				 	else if(data['time'] == 0) {
+				 		notify("You have to wait for timer to finish");
 				 	}
 				 	else {
 				 		notify("Failed! Reload and then retry.");
@@ -43,9 +53,16 @@
 			});
      	}
 		function initTimer(t){
-					$(".container").show();
-					$(".wait").animate(	{width:$(".container").width()},t*1000);
-					setTimeout(function(){$(".container").fadeOut(1000);},t*1000);
+			var i = 0;
+			if (t < 1) {
+				return 0;
+			}
+			$(".container").show();
+			window.setInterval(function() {
+				$("#time").text(++i + "/" + t);
+			}, 1000);
+			$(".wait").animate(	{width:$('.container').width()},t*1000);
+			setTimeout(function(){$(".container").fadeOut(1000);},t*1000);
 		}
 		function notify(msg,timeout,redirectTo){
 			timeout = typeof timeout !== 'undefined' ? timeout : 5000;
@@ -61,15 +78,6 @@
 				setTimeout(function(){$(location).attr("href","map")},timeout);
 			}
 		}
-				/*$(document).ready(function(){
-					$('#board').hide();
-
-					$('.lea').click(function(event) {
-						$.post('learnSkill', data: {'skill': ''}, function(data, textStatus, xhr) {
-							/*optional stuff to do after success */
-						/*});
-					});
-				});*/
 		</script>
 </head>
 <body>
@@ -94,6 +102,7 @@
 		<div class="wait">
 			
 		</div>
+		<span id="time"></span>
 </div>
 	<div id="notify">
 		<div id="msg">

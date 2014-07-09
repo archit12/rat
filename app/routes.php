@@ -6,7 +6,7 @@ App::bind('SkillInterface', 'Skill');
 //---------------------------------- remove in production ----------------------//
 
 Route::get('check', 'AttainmentHallController@check');
-
+Route::post('checkSkill', 'AttainmentHallController@checkSkill');
 //----------------------------------        end           ----------------------//
 
 Route::filter('notLoggedIn', function()

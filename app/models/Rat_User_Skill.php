@@ -73,7 +73,7 @@ class Rat_User_Skill extends Eloquent
 		// get time when skill was learnt and subtratct it with the time required to learn the skill
 	}
 
-	public static function getTime($uid, $skill_id)
+	public static function getTime($uid, $skill_id = 1)
 	{
 		//get time when skill was learnt by the user
 		$time = DB::table('rat_user_skills')
@@ -94,22 +94,20 @@ class Rat_User_Skill extends Eloquent
 		return $time;
 	}
 
-	public static function setTime($uid, $skill_id)
+	public static function setTime($uid, $skill_id, $current_level)
 	{
-		$learnt_time = Rat_User_Skill::getTime($uid, $skill_id);
+		date_default_timezone_set('Asia/Kolkata');
+		$current_time = new DateTime();
 		$total_time = Rat_User_Skill::getTotalTime($skill_id);
-		if (array_key_exists(0, $learnt_time)) {
-            $learnt_time = $learnt_time[0]->time;
-        }
         if (array_key_exists(0, $total_time)) {
             $total_time = intval($total_time[0]->time);
         }
-        $total_time = $total_time * 2;
-        $time = (new DateTime($learnt_time))->add(new DateInterval('PT'.$total_time.'S'));
+        // multiplier for time to wait for learning new skill
+        $total_time = $total_time * ($current_level * 10);
+        $new_time = $current_time->add(new DateInterval('PT'.$total_time.'S'));
         DB::table('rat_user_skills')
         ->where('uid', $uid)
-        ->where('sk_id', $skill_id)
-        ->update(array('time' => $time->format('y-m-d h:i:s')));
+        ->update(array('time' => $new_time->format('Y-m-d H:i:s')));
 	}
 
 	//get the requirement of skill for user at current level

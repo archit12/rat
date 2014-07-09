@@ -36,8 +36,11 @@ class Skill implements SkillInterface
 	    					DB::beginTransaction();
 	    					if(Skill::deductItems($requirements)) {
 								if (Skill::increaseSkill($skill_id)) {
-									echo 1;
-									DB::commit();
+									Rat_User_Skill::setTime(Session::get('uid'), $skill_id, $current_level);
+									//echo 1;
+									$yea = DB::commit();
+									$time = AttainmentHallController::isTimerShown();
+									echo json_encode(array('result' => 1, 'time' => $time));
 								}
 								else {
 									throw new Exception("Error Processing Request", 1);
@@ -50,12 +53,14 @@ class Skill implements SkillInterface
 	    				}
 	    				else {
 	    					// not enough time has passed
-	    					echo 0;
+	    					//echo 0;
+	    					echo json_encode(array('result' => 0, 'time' => 0));
 	    				}
     				}
     				else {
 	    				// not enough resources
-    					echo 0;
+    					//echo 0;
+    					echo json_encode(array('result' => 0, 'time' => 1));
     				}
     			}
     			else {
@@ -67,8 +72,9 @@ class Skill implements SkillInterface
     		}
     	}
     	catch(Exception $e) {
-    		echo 2;
-    		DB::rollback();
+    		//echo 2;
+    		$yea = DB::rollback();
+    		echo json_encode(array('result' => 2, 'time' => 0));
     	}
 	}
 
@@ -78,42 +84,17 @@ class Skill implements SkillInterface
 		//-------------------- Set ------------------------//
 		date_default_timezone_set('Asia/Kolkata');
 
-		// get the current datetime
 		$current_time = new DateTime();
-		// get time when skill was learnt
+		// get time when skill can be learnt
 		$learnt_time = Rat_User_Skill::getTime(Session::get('uid'), $skill_id);
 		if (array_key_exists(0, $learnt_time)) {
             $learnt_time = $learnt_time[0]->time;
         }
         $extra_time = new DateTime($learnt_time);
         if ($current_time > $extra_time) {
-        	echo "learnt";
+        	$time_valid = 1;
         }
-
-        else {
-        	echo "not";
-        }
-        /*
-        // changing the timestamp returned from MySQL to PHP DateTime object
-        $old_time = new DateTime($learnt_time);
-
-        // get total time required for which user has to wait
-		$total_time = Rat_User_Skill::getTotalTime($skill_id);
-		if (array_key_exists(0, $total_time)) {
-            $total_time = intval($total_time[0]->time);
-        }
-        $total_time = $total_time * $current_level;
-		//-------------------- end ------------------------//
-
-		//-------------------- check ----------------------//
-        $difference = $current_time->getTimeStamp() - $old_time->getTimeStamp();
-        if ($total_time > $difference) {
-            $time_valid = false;
-        }
-        else {
-        	$time_valid = true;
-        }
-		return $time_valid;*/
+        return $time_valid;
 	}
 
 	// check whether skill to be learnt is wisdom

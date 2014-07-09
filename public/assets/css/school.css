@@ -22,21 +22,34 @@ body{
 	}
 .container
 {
-	width:180px;
-	height:10px;
+	width:250px;
+	height:16px;
 	padding:2px;
 	border: solid 1px #fff;
 	position: absolute;
 	bottom: 61px;
 	right: 590px;
+	color: white;
+	background-color: rgba(255, 255, 255, 0.2);
 }
 .wait
 {
+	position: absolute;
+	z-index: 1;
 	width:1%;
-	height:10px;
+	height:16px;
 	background-color:#ffe;
 	float:left;
 	
+}
+#time
+{
+	position: absolute;
+	text-align: center;
+	color: black;
+	font-family:"My Custom Font";
+	z-index: 100;
+	margin-left: 40%;
 }
 #hardfront1{
 	background-image:url(../images/pages/cover01.jpg);
