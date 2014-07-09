@@ -1,33 +1,7 @@
-@font-face
- {
-	font-family: "My Custom Font";
-	src: url(../fonts/PiecesofEight.ttf) format("truetype" );
- }
-body{
+*{
 	margin:0px;
 	padding:0px;
-	font-family:"My Custom Font";
-	color:White;
 }
-#notify{
-			display:none;
-			background-image:url("../images/alertbox.png") ;
-			height:110px;
-			width:358px;
-			position:absolute;
-			bottom:10px;
-			right:30px;
-			z-index:9999;
-			padding:20px;
-			}
-	#msg
-	{
-		padding:20px !important;
-		font-family:"My Custom Font" !important;
-		font-size:30px;
-		color:Black;
-		
-	}			
 .animateopacity{
 	opacity:0.6;
 	z-index:50;
@@ -41,7 +15,7 @@ body{
 	opacity:1.0;
 }
 .panel{
-	background-image:url('../images/panel.png');
+	/* background-image:url(../images/barv.jpg); */
 	background-repeat:repeat;
 	color:black;
 	z-index:200;
@@ -56,6 +30,33 @@ body{
 .toppanel{
 	float:left;
 	padding:5px;
+}
+.smoothbig
+{
+	-webkit-transition: all 200ms ease-in-out;
+       -moz-transition: all 200ms ease-in-out;
+        -ms-transition: all 200ms ease-in-out;
+         -o-transition: all 200ms ease-in-out;
+            transition: all 200ms ease-in-out;
+	
+}
+.smoothbig:hover
+{
+    -webkit-transform: scale(1.2) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+       -moz-transform: scale(1.2) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+        -ms-transform: scale(1.2) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+         -o-transform: scale(1.2) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
+            transform: scale(1.2) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg); 	
+}
+
+.rightpanel{
+	position:fixed;
+	right:-20px;
+	width:50px;
+	height:100%;
+	padding:15px 10px;
+	background-image:url('../images/bar.jpg');
+	opacity:0.8;
 }
 #logot{
 	position: absolute;
@@ -77,16 +78,6 @@ body{
 left: -880px;
 top: -50px;
 }
-
-.rightpanel{
-	position:fixed;
-	right:-20px;
-	width:50px;
-	height:100%;
-	padding:15px 10px;
-	background-image:url(../images/bar.jpg);
-	opacity:0.8;
-}
 .rightpanel:hover{
 	opacity:1;
 }
@@ -94,20 +85,19 @@ top: -50px;
 	position:fixed;
 	bottom:0px;
 	width:100%;
-	background-image:url(../images/barv.jpg);
+	background-image:url('../images/barv.jpg');
 	padding-top:10px;
 	
 }
 .toptitle{
 	float:left;
 	font-size:1.6em;
-	
 }
 
 @font-face
  {
 	font-family: "My Custom Font";
-	src: url(../fonts/PiecesofEight.ttf) format("truetype" );
+	src: url(../PiecesofEight.ttf) format("truetype" );
  }
  @font-face
  {
@@ -120,7 +110,6 @@ top: -50px;
 .panel{
 	font-family:"My Custom Font";
 	z-index:900;
-	color:White;
 }
 .panel img{
 	z-index:900;
@@ -157,36 +146,40 @@ top: -50px;
 	color:white;
 }
 .popup_table{
-	z-index:0;
+	z-index:999;
 	position:absolute;
-	z-index:0;
 	display:none;
+	background:url('../images/tables.png');
+	font-size:14px;
+	width:420px;
+	height:380px;
 }
 .table_show{
 	display:block;
 }
 .popup_table tr {
-	font-family:"My Custom Font";
-	font-size:20pt;
+	font-family:helvetica , verdana , arial;
+	font-size:16px;
 	font-weight:lucida console;
 	border-bottom:solid 1px #fff;
 	color:white;
 }
 .popup_table td{
-	padding:10px 20px;
 	margin:0px;
-	
+	text-align:left;
 	color:white;
-	font-family:"My Custom Font";
-	font-size:18pt;
-	font-weight:lighter;
+	font-family:helvetica , verdana , arial;
+	font-size:14px;
+	font-weight:bolder;
+	color:rgba(140,0,0,0.8);
+	padding-right:10px;
 }
 .popup_table tr td div table tr{
 	padding:0px;
 	margin:0px;
 }
 .popup_table  tr td div table tr:hover{
-	background-color:rgba(127,41,41,0.8)
+	background-color:rgba(240,240,240,0.2)
 }
 .process_icon{
 	height:50px;
@@ -198,7 +191,8 @@ top: -50px;
 	width:30px;
 }
 .popup_table table{
-
+	margin-left: 45;
+	margin-top:15px;
 }
 .popup_table_div{
 	max-height:300px;
@@ -228,104 +222,90 @@ div::-webkit-scrollbar-thumb {
 	border:none;
 	color:white;
 	width:50px;
-	font-family:"My Custom Font";
-	font-size:18pt;
+	font-family:helvetica , verdana , arial;
+	font-size:14pt;
+	font-weight:bolder;
+	color:rgba(140,0,0,0.8);
 }
 .avtr1{
 background-color:rgba(106,105,75,1.0);
-background-image:url(../images/avatars/1.jpg);
 }
 .avtr2{
 background-color:rgba(173,122,119,1.0);
-background-image:url(../images/avatars/2.jpg);
 }
 .avtr3{
 background-color:rgba(168,106,69,1.0);
-background-image:url(../images/avatars/3.jpg);
 }
 .avtr4{
 background-color:rgba(200,195,201,1.0);
-background-image:url(../images/avatars/4.jpg);
 }
 .avtr5{
 background-color:rgba(235,224,173,1.0);
-background-image:url(../images/avatars/5.jpg);
 }
 .avtr6{
 background-color:rgba(100,132,179,1.0);
-background-image:url(../images/avatars/6.jpg);
 }
 .avtr7{
 background-color:rgba(221,172,166,1.0);
-background-image:url(../images/avatars/7.jpg);
 }
 .avtr8{
 background-color:rgba(164,190,223,1.0);
-background-image:url(../images/avatars/8.jpg);
 }
 .avtr9{
 background-color:rgba(190,166,195,1.0);
-background-image:url(../images/avatars/9.jpg);
 }
 .avtr10{
 background-color:rgba(200,227,222,1.0);
-background-image:url(../images/avatars/10.jpg);
 }
 .avtr11{
 background-color:rgba(158,163,167,1.0);
-background-image:url(../images/avatars/11.jpg);
 }
 .avtr12{
 background-color:rgba(99,92,99,1.0);
-background-image:url(../images/avatars/12.jpg);
 }
 .avtr13{
 background-color:rgba(200,223,227,1.0);
-background-image:url(../images/avatars/13.jpg);
 }
 .avtr14{
 background-color:rgba(254,232,121,1.0);
-background-image:url(../images/avatars/14.jpg);
 }
 .avtr15{
 background-color:rgba(243,240,238,1.0);
-background-image:url(../images/avatars/15.jpg);
 }
 .avtr16{
 background-color:rgba(171,115,100,1.0);
-background-image:url(../images/avatars/16.jpg);
 }
 .avtr17{
 background-color:rgba(180,218,221,1.0);
-background-image:url(../images/avatars/17.jpg);
+
 }
 .avtr18{
 background-color:rgba(96,222,58,1.0);
-background-image:url(../images/avatars/18.jpg);
+
 }
 .avtr19{
 background-color:rgba(167,126,80,1.0);
-background-image:url(../images/avatars/19.jpg);
+
 }
 .avtr20{
 background-color:rgba(146,150,159,1.0);
-background-image:url(../images/avatars/20.jpg);
+
 }
 .avtr21{
 background-color:rgba(107,136,121,1.0);
-background-image:url(../images/avatars/21.jpg);
+
 }
 .avtr22{
 background-color:rgba(247,214,63,1.0);
-background-image:url(../images/avatars/22.jpg);
+
 }
 .avtr23{
 background-color:rgba(254,253,251,1.0);
-background-image:url(../images/avatars/23.jpg);
+
 }
 .avtr24{
 background-color:rgba(164,98,162,1.0);
-background-image:url(../images/avatars/24.jpg);
+/*background-image:url(../images/avatars/24.jpg);*/
 }
 
 #notif{
@@ -358,22 +338,7 @@ background-image:url(../images/avatars/24.jpg);
 	bottom:-350px;
 	left:47%;
 }
-.smoothbig
-{
-	-webkit-transition: all 200ms ease-in-out;
--moz-transition: all 200ms ease-in-out;
--ms-transition: all 200ms ease-in-out;
--o-transition: all 200ms ease-in-out;
-transition: all 200ms ease-in-out;
-	
-}
-.smoothbig:hover
-{
--moz-transform: scale(1.2) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
--webkit-transform: scale(1.2) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
--o-transform: scale(1.2) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
--ms-transform: scale(1.2) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg);
-transform: scale(1.2) rotate(0deg) translateX(0px) translateY(0px) skewX(0deg) skewY(0deg); 	
-}
-
+#close_table
+	{
 		
+	}

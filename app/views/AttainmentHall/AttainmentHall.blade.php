@@ -41,10 +41,10 @@
 						initTimer(data['time']);
 					}
 				 	else if (data['result'] == 0 && data['time'] == 1) {
-				 		notify("You do not have the required items to learn this skill");
+				 		notify("You do not have the required items to learn this skill.");
 				 	}
 				 	else if(data['time'] == 0) {
-				 		notify("You have to wait for timer to finish");
+				 		notify("You have to wait for timer to finish. Come back later.");
 				 	}
 				 	else {
 				 		notify("Failed! Reload and then retry.");
