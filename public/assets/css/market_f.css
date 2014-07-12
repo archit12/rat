@@ -63,7 +63,7 @@ div::-webkit-scrollbar-thumb {
 	font-size:18pt;
 	padding-right:5px;
 }
-.chat_recieved{
+.chat_received{
 	color:green;
 	font-family:"My Custom Font";
 	font-size:18pt;
@@ -206,6 +206,11 @@ div::-webkit-scrollbar-thumb {
 		width: 135px;
 		margin-left: 10px;
 	}
+.broadcast_msg {
+	font-size: 1em;
+	color: black;
+	font-family: 'segoe ui', 'ariel black', 'helvetica', 'times new roman';
+}
 #shop
 	{
 		position: absolute;

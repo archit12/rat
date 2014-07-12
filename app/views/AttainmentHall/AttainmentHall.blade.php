@@ -84,24 +84,25 @@
 		@include('hud')
 		@include('show_avatar')
 		<div class="panel rightpanel">
-		<div id='logot'><a id='logout' href='rat_logout' title='logout'>
-		{{HTML::image('assets/images/icons/logout.png', 'logout', array('class' => 'smoothbig', 'width' => 50, 'height' => 50))}}
-		</a></div>
-      <div id='leaderboard'>
-        <a id='leader' href='lb2/scrolloffame.html' class='smoothbig' title='Leaderboard' target='_blank'>
-          {{HTML::image('assets/images/icons/leaderboard.png', 'leaderboard', array('class' => 'smoothbig', 'width' => 50, 'height' => 50))}}
-        </a>
-      </div>
-				<div id='st'><a id='story' href='story'>
+		<div id='logot'>
+			<a id='logout' href='rat_logout' title='logout'>
+				{{HTML::image('assets/images/icons/logout.png', 'logout', array('class' => 'smoothbig', 'width' => 50, 'height' => 50))}}
+			</a>
+		</div>
+    	<div id='leaderboard'>
+        	<a id='leader' href='lb2/scrolloffame.html' class='smoothbig' title='Leaderboard' target='_blank'>
+          		{{HTML::image('assets/images/icons/leaderboard.png', 'leaderboard', array('class' => 'smoothbig', 'width' => 50, 'height' => 50))}}
+        	</a>
+    	</div>
+		<div id='st'>
+			<a id='story' href='story'>
 				{{HTML::image('assets/images/icons/story.png', 'story', array('title' => 'story', 'class' => 'smoothbig', 'width' => 50, 'height' => '50'))}}
-				</a></div>					
-				
+			</a>
+		</div>
 	</div>
 <br/>
 <div class="container" style="display:none;">
-		<div class="wait">
-			
-		</div>
+		<div class="wait"></div>
 		<span id="time"></span>
 </div>
 	<div id="notify">

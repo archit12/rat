@@ -5,8 +5,7 @@ App::bind('SkillInterface', 'Skill');
 //for testing
 //---------------------------------- remove in production ----------------------//
 
-Route::get('check', 'AttainmentHallController@check');
-Route::post('checkSkill', 'AttainmentHallController@checkSkill');
+Route::any('check', 'BroadcastController@index');
 //----------------------------------        end           ----------------------//
 
 Route::filter('notLoggedIn', function()
@@ -95,8 +94,13 @@ Route::group(['before' => 'auth'], function () {
         'uses' => 'HomeController@rat_logout'
     ));
 
-
+    Route::post('/broadcast_get', 'BroadcastController@index');
 });
+
+    Route::post('/broadcast_save', array(
+        'as' => 'broadcast',
+        'uses' => 'BroadcastController@store'
+    ));
 
 View::composer('hud', function($view){
     $money = Rat_User_Item::getMoney(Session::get('uid'));
