@@ -15,6 +15,7 @@
 
 	<script>
 		$(document).ready(function(){
+			var map_area = $('.maparea');
 			$('#board').hide();
 			$('#close').on("click", function(){
 				$('#board').hide();
@@ -25,7 +26,7 @@
 				if (broadcast !== '') {
 					$.ajax({
 						   'type': 'POST',
-						    'url': 'broadcast_save',
+						    'url': 'market/broadcast_save',
 						   'data': {'broadcast': broadcast},
 						'success': function(data) {
 							$('#broadcast_msg').val('');
@@ -41,12 +42,11 @@
 				}
 			});
 			//display broadcast messages in broadcast window
-			//receive array of JSON objects as data! improvement required
 			var last_id = 0;
 			window.setInterval(function() {
 				$.ajax({
 				       'type': 'POST',
-				        'url': 'broadcast_get',
+				        'url': 'market/broadcast_get',
 				       'data': {'last_id': last_id},
 					'success': function(data) {
 						data = JSON.parse(data);
@@ -63,6 +63,45 @@
 					},
 				});
 			}, 2000);
+			//get Market users
+			// improve failed ajax response, setTimeout for retrying and limited retries!
+			var getLoggedUsers = function (callback) {
+				var _y, _x;
+				$.ajax({
+					url: 'market_users',
+					type: 'POST'
+				})
+				.done(function (data) {
+					data = JSON.parse(data);
+					for (x in data) {
+						_y = map_area.height() * Math.random();
+						_x = map_area.width() * Math.random();
+						if (data.hasOwnProperty(x)) {
+							map_area.append('<div class="player" id="'+ data[x].uid +'" title="'+ data[x].aname +'" style="background-image: url('+ data[x].avatar +');" ></div>');
+							$('#'+data[x].uid).css({
+								top: _y,
+								left: _x
+							});
+						}
+					};
+					console.log(data);
+				})
+				.fail(function () {
+					getLoggedUsers();
+				})
+				.always(function () {
+					callback();
+				});
+			};
+			var handlePlayers = function () {
+				$(document).find('.player').click(function() {
+					$('#chatbox').show();
+				});
+				$('#chatend').click(function() {
+					$('#chatbox').hide();
+				});
+			};
+			getLoggedUsers(handlePlayers);
 		});
 	</script>
 

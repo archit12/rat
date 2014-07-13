@@ -4,11 +4,11 @@
 // });
 // });
 
-$('.player').live('mouseenter', function () {
+$('.player').on('mouseenter', function () {
 	stopanimation($(this).attr('id'));
 });
 
-$('.player').live('mouseleave', function () {
+$('.player').on('mouseleave', function () {
 	animateDiv($(this).attr('id'));
 });
 
@@ -39,6 +39,8 @@ function animateDiv(id) {
     var newq = makeNewPosition($target.parent());
     var oldq = $target.offset();
     var speed = calcSpeed([oldq.top, oldq.left], newq);
+    console.log(speed);
+    console.log(oldq.top+" "+oldq.left+" to "+newq);
     $($target).animate({
         top: newq[0],
         left: newq[1]

@@ -38,7 +38,15 @@ class Rat_Users extends Eloquent implements UserInterface, RemindableInterface {
 			echo $exception;
 			return false;
 		}
-	} 
+	}
+
+	public static function getOnlineMarketUsers() {
+		$users = Rat_users::where('logged', 1)
+		->where('location', 2)
+		->select('uid', 'aname', 'busy', 'avatar')
+		->get()->toArray();
+		return $users;
+	}
 
 	public function getDetails($emailid) {
 		return Rat_Users::where('emailid', '=', $emailid)->get()->toArray();
