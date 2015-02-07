@@ -1,6 +1,8 @@
 <html>
 <head>
 	{{ HTML::script('assets/js/jquery-1.9.0.min.js') }}
+	{{ HTML::script('assets/js/arch_broadcast.js') }}
+	{{ HTML::script('assets/js/arch_market_users.js') }}
 	{{--
 	{{ HTML::script('assets/js/strollmarket.js') }}
 	{{ HTML::script('assets/js/market_final.js') }}
@@ -14,94 +16,139 @@
 	{{ HTML::style('assets/css/market_f.css') }}
 
 	<script>
-		$(document).ready(function(){
-			var map_area = $('.maparea');
-			$('#board').hide();
-			$('#close').on("click", function(){
+		$(window).on('beforeunload', function(){
+			return "Your Chat session will expire!";
+		});
+		$(document).ready(function() {
+			// var map_area = $('.maparea'),
+			//   chat_area = $('.chatarea'),
+			//             chat_last_id = 0,
+			//                    sender_id;
+			//initialising function
+			var init = function () {
 				$('#board').hide();
-			});
-			//send broadcast message
-			$('#send_broadcast').on("click", function(){
-				var broadcast = $('#broadcast_msg').val();
-				if (broadcast !== '') {
-					$.ajax({
-						   'type': 'POST',
-						    'url': 'market/broadcast_save',
-						   'data': {'broadcast': broadcast},
-						'success': function(data) {
-							$('#broadcast_msg').val('');
-							$('#send_broadcast').fadeOut("1000");
-							window.setTimeout(function() {
-								$('#send_broadcast').fadeIn();
-							}, 30000);
-						},
-					});
-				}
-				else {
-					alert("Please enter a valid message");
-				}
-			});
-			//display broadcast messages in broadcast window
-			var last_id = 0;
-			window.setInterval(function() {
-				$.ajax({
-				       'type': 'POST',
-				        'url': 'market/broadcast_get',
-				       'data': {'last_id': last_id},
-					'success': function(data) {
-						data = JSON.parse(data);
-						for(x in data) {
-							if(data.hasOwnProperty(x)) {
-								last_id = data[x].b_id;
-								if (data[x].msg !== "") {
-									$('#broadcast_displaymsg').append('<p style="margin: 0px; display: inline;"><span class="chat_received">'+data[x].aname+'</span></p> : <span class="broadcast_msg">'+data[x].msg+"</span><br>");
-									last_id = data[x].b_id;
-								}
-							}
-							$('#broadcast_displaymsg')[0].scrollTop = $('#broadcast_displaymsg')[0].scrollHeight;
-						}
-					},
-				});
-			}, 2000);
-			//get Market users
-			// improve failed ajax response, setTimeout for retrying and limited retries!
-			var getLoggedUsers = function (callback) {
-				var _y, _x;
-				$.ajax({
-					url: 'market_users',
-					type: 'POST'
-				})
-				.done(function (data) {
-					data = JSON.parse(data);
-					for (x in data) {
-						_y = map_area.height() * Math.random();
-						_x = map_area.width() * Math.random();
-						if (data.hasOwnProperty(x)) {
-							map_area.append('<div class="player" id="'+ data[x].uid +'" title="'+ data[x].aname +'" style="background-image: url('+ data[x].avatar +');" ></div>');
-							$('#'+data[x].uid).css({
-								top: _y,
-								left: _x
-							});
-						}
-					};
-					console.log(data);
-				})
-				.fail(function () {
-					getLoggedUsers();
-				})
-				.always(function () {
-					callback();
+				$('#close').on("click", function(){
+					$('#board').hide();
 				});
 			};
-			var handlePlayers = function () {
-				$(document).find('.player').click(function() {
-					$('#chatbox').show();
-				});
-				$('#chatend').click(function() {
-					$('#chatbox').hide();
-				});
-			};
-			getLoggedUsers(handlePlayers);
+			init();
+
+		// 	var chat_seen = function () {
+		// 		$.ajax({
+		// 			url: 'market/chat_seen',
+		// 			type: 'POST',
+		// 			data: {'last_id': chat_last_id, 'sender_id': sender_id}
+		// 		})
+		// 		.done(function() {
+		// 			console.log("success");
+		// 		})
+		// 		.fail(function() {
+		// 			console.log("error");
+		// 		})
+		// 		.always(function() {
+		// 			console.log("complete");
+		// 		});
+		// 	};
+		// 	//display chat messages in chat window from any sender
+		// 	var chat_get_all = function () {
+		// 		$.ajax({
+		// 			url: 'market/chat_getall',
+		// 			type: 'POST',
+		// 			'data': {'last_id': chat_last_id},
+		// 		})
+		// 		.done(function(data) {
+		// 			data = JSON.parse(data);
+		// 			for (x in data) {
+		// 				if (data.hasOwnProperty(x)) {
+		// 					chat_area.append('<p title="Sender Name"><span class="chat_received">'+ data[x].aname +' : </span>'+ data[x].msg +'</p>');
+		// 					chat_last_id = data[x].chat_id;
+		// 					sender_id = data[x].send_id;
+		// 				}
+		// 				if ($('#chatbox').css('display') === "none") {
+		// 					clearInterval(chat_all_poll);
+		// 					$('#chatbox').css('display', "block");
+
+		// 				}
+		// 				$('.chatarea')[0].scrollTop = $('.chatarea')[0].scrollHeight;
+		// 			};
+		// 			console.log("chat_last "+chat_last_id);
+		// 			chat_seen();
+		// 		})
+		// 		.fail(function() {
+		// 			console.log("error");
+		// 		})
+		// 		.always(function() {
+		// 			console.log("complete");
+		// 		});
+		// 	};
+		// 	var chat_all_poll = setInterval(function () {
+		// 		chat_get_all();
+		// 	}, 2000);
+
+		
+		// 	//check if receiver is not busy to open chatbox
+		// 	var chat_syn = function (rec_id) {
+		// 		$.ajax({
+		// 				url: 'market/chat_syn',
+		// 				type: 'POST',
+		// 				data: {'rec_id': rec_id},
+		// 			})
+		// 			.done(function (data) {
+		// 				if (data) {
+		// 					clearInterval(chat_all_poll);
+		// 					$('#chatbox').show();
+		// 				}
+		// 				else {
+		// 					alert("Player Busy");
+		// 				}
+		// 			})
+		// 			.fail(function() {
+		// 				console.log("error");
+		// 			})
+		// 			.always(function() {
+		// 				console.log("complete");
+		// 			});
+		// 	};
+		// 	//send chat message
+		// 	var chat_send = function () {
+		// 		var chat_msg = $('#chattext').val();
+		// 		$('#chattext').val('');
+		// 		$.ajax({
+		// 			url: 'market/chat_save',
+		// 			type: 'POST',
+		// 			data: {'chat_msg': chat_msg},
+		// 		})
+		// 		.done(function (data) {
+		// 			console.log(data);
+		// 		})
+		// 		.fail(function() {
+		// 			console.log("error");
+		// 		})
+		// 	};
+		// 	$('#chatsend').click(function() {
+		// 		chat_send();
+		// 	});
+		// 	var chat_end = function () {
+		// 		$.ajax({
+		// 			url: 'market/chat_fin',
+		// 			type: 'POST'
+		// 		})
+		// 		.done(function(data) {
+		// 			if (data) {
+		// 				$('#chatbox').hide();
+		// 				chat_all_poll = window.setInterval(chat_get_all(), 2000);
+		// 			}
+		// 			else {
+		// 				alert("Failed to end chat!");
+		// 			}
+		// 		})
+		// 		.fail(function() {
+		// 			console.log("Retry");
+		// 		});
+		// 	};
+		// 	$('#chatend').click(function() {
+		// 		chat_end();
+		// 	});
 		});
 	</script>
 
@@ -130,10 +177,10 @@
 			</a>
 		</div>
 		<div id='leaderboard'>
-        <a id='leader' href='lb2/scrolloffame.html' class='smoothbig' title='Leaderboard' target='_blank'>
-          {{ HTML::image('assets/images/icons/leaderboard.png', 'leaderboard', array('class' => 'smoothbig', 'width' => 50, 'height' => 50)) }}
-        </a>
-      </div>
+		<a id='leader' href='lb2/scrolloffame.html' class='smoothbig' title='Leaderboard' target='_blank'>
+		  {{ HTML::image('assets/images/icons/leaderboard.png', 'leaderboard', array('class' => 'smoothbig', 'width' => 50, 'height' => 50)) }}
+		</a>
+	  </div>
 		<div id='st'>
 			<a id='story' href='story'>
 				{{ HTML::image('assets/images/icons/story.png', 'story', array('title' => 'story', 'class' => 'smoothbig', 'width' => 50, 'height' => '50')) }}

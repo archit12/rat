@@ -8,6 +8,7 @@ class AttainmentHallController extends BaseController implements ControllerLocat
 
     public function index() {
         AttainmentHallController::changeLocation();
+        Rat_Users::turnFree(['sender' => Session::get('uid'), 'receiver' => Session::get('rec_id', 0)]);
         $timer = AttainmentHallController::isTimerShown();
         $contents = AttainmentHallController::showBookContents();
         $skills = Rat_User_Skill::getAll(Session::get('uid'));

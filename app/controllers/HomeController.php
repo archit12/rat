@@ -54,7 +54,9 @@ class HomeController extends BaseController {
     public function rat_logout()
     {
         $this->ratuser->updateLoginStatus(Auth::user()->emailid, 0);
-        Auth::logout();        
+        $this->ratuser->turnFree(['sender' => Session::get('uid'), 'receiver' => Session::get('rec_id'), 0]);
+        $this->ratuser->setLocation(Session::get('uid'), 0);
+        Auth::logout();
         return Redirect::route('showLogin');
     }
 

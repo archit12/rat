@@ -16,7 +16,7 @@
             <div id="slidedowner" style="background-image: url('assets/images/panelbg.png')">
                 <div style="width: 535px; margin-top: 200px; height: 300px;">                                	
                     {{ Form::open(array('url' => '/login', 'method' => 'post')) }}
-                        <p>Enter TT Email ID</p>
+                        <p>Enter Email ID</p>
                         <input  type="text" id='user' name="emailid" {{ (Input::old('emailid')) ? 'value="'.e(Input::old('emailid')).'"' : "" }}/>
                         @if ($errors->has('emailid'))
                         	{{ $errors->first('emailid') }}

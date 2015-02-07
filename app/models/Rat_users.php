@@ -48,6 +48,34 @@ class Rat_Users extends Eloquent implements UserInterface, RemindableInterface {
 		return $users;
 	}
 
+	public static function isBusy($rec_id) {
+		if (Rat_Users::find($rec_id)->busy) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public static function turnBusy($users = []) {
+		$users = ['sender' => Session::get('uid'), 'receiver' => 9];
+		if (array_key_exists('sender', $users) && array_key_exists('receiver', $users)) {
+			if(Rat_Users::whereIn('uid', $users)->update(array('busy' => 1))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static function turnFree($users = []) {
+		if (array_key_exists('sender', $users) && array_key_exists('receiver', $users)) {
+			if(Rat_Users::whereIn('uid', $users)->update(array('busy' => 0))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public function getDetails($emailid) {
 		return Rat_Users::where('emailid', '=', $emailid)->get()->toArray();
 	}

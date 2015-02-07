@@ -24,11 +24,6 @@
 		});
 		$('#board').hide();
 
-		$(window).on('beforeunload', function(){
-			console.log("ok");
-        	return "You will be logged out!";
-     	});
-
      	function learnSkill(skill) {
 	     		$.ajax({
 				'url': 'learn',
