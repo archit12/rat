@@ -69,6 +69,14 @@ class Rat_User_Skill extends Eloquent
 		return $level;
 	}
 
+	// Initialize all skills with level 1 and old date time
+	public static function initialize($uid, $skills)
+	{
+		foreach ($skills as $skill) {
+			Rat_User_Skill::create(['uid' => $uid, 'sk_id' => $skill->id, 'level' => 1, 'time' => "1993-08-12 00:00:00"]);
+		}
+	}
+
 	public static function getRemainingTime() {
 		// get time when skill was learnt and subtratct it with the time required to learn the skill
 	}

@@ -30,7 +30,9 @@ class HomeController extends BaseController {
             //check if user exists in Reiches database
             if (Auth::attempt($credentials)) {
                 $this->ratuser->updateLoginStatus($credentials['emailid'], 1);
-                Session::put('uid', (new Rat_Users)->getDetails(Auth::user()->emailid)[0]['uid']);
+                $email = Auth::user()->emailid[0]['uid'];
+                Session::put('uid', (new Rat_Users)->getDetails($email));
+                Rat_users::initialize(Session::get('uid'));
                 return Redirect::route('map');
             }
             else {
@@ -64,6 +66,7 @@ class HomeController extends BaseController {
 
     // TODO: Remove in production
     public function check() {
-        return Rat_User_Item::initializeMoney(7);
+        // return Rat_User_Item::getMoney(7)[0]->qty;
+        // Rat_users::initialize(9);
     }
 }

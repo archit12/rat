@@ -1,17 +1,17 @@
 <?php
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
-class Traits extends Eloquent {
+class Rat_Skills extends Eloquent {
 	protected $guarded = array();
-	protected $primaryKey = "tid";
-	protected $table = 'rat_traits';
+	protected $primaryKey = "id";
+	protected $table = 'rat_skills';
 	public $timestamps = false;
 
 	public function users() {
-		return $this->belongsToMany('Rat_Users', 'rat_user_traits', 'tid', 'tid');
+		return $this->belongsToMany('Rat_Users', 'rat_user_skills', 'id', 'uid');
 	}
 
 	public static function getAll() {
-		return Traits::all();
+		return Rat_Skills::all();
 	}
 }

@@ -16,4 +16,11 @@ class Rat_User_Trait extends Eloquent {
         ->get();
 		 return $traits;
 	}
+
+	public static function initialize($uid, $traits)
+	{
+		foreach ($traits as $trait) {
+			Rat_User_Trait::create(['uid' => $uid, 'tid' => $trait->tid, 'value' => $trait->default_value]);
+		}
+	}
 }
