@@ -194,11 +194,15 @@ class Skill implements SkillInterface
 
 	public static function deductItems($items) 
 	{
+		// Deduct the items from main inventory
 		foreach ($items as $item) {
 			if(!Rat_User_Item::deductItem(Session::get('uid'), $item->it_id, $item->require)){
 				return 0;
 			}
 		}
+		/* If after deducting money from main inventory, the current inventory has more money than main inventory, 
+		 * then update current inventory with the amount in main inventory.
+		 */
 		$total_money = Rat_User_Item::getMoney(Session::get('uid'));
 		if (array_key_exists(0, $total_money)) {
 			$total_money = $total_money[0]->qty;
@@ -214,7 +218,7 @@ class Skill implements SkillInterface
 			return 0;
 		}
 		if (intval($money_on_person) > intval($total_money)) {
-			if(Rat_User_Current_Item::deductMoney(Session::get('uid'), $total_money)) {
+			if(Rat_User_Current_Item::updateMoney(Session::get('uid'), $total_money)) {
 				return 1;
 			}
 			else {

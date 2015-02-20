@@ -5,7 +5,7 @@ App::bind('SkillInterface', 'Skill');
 //for testing
 //---------------------------------- remove in production ----------------------//
 
-Route::any('check', 'MarketController@chat_get');
+Route::any('check', 'HomeController@check');
 
 //----------------------------------        end           ----------------------//
 

@@ -37,6 +37,7 @@ class HomeController extends BaseController {
 
                 //check if user exists in TT database
                 if ($this->ttuser->authenticate()) {
+
                     return Redirect::route('avatar');
                 }
                 else {
@@ -60,4 +61,9 @@ class HomeController extends BaseController {
         return Redirect::route('showLogin');
     }
 
+
+    // TODO: Remove in production
+    public function check() {
+        return Rat_User_Item::initializeMoney(7);
+    }
 }

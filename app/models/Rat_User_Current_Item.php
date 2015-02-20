@@ -13,7 +13,7 @@ class Rat_User_Current_Item extends Eloquent
 		return $money;
 	}
 
-	public static function deductMoney($uid, $amount) {
+	public static function updateMoney($uid, $amount) {
 		$item_id = 2;
 		return Rat_User_Current_Item::where('uid', $uid)
 		->where('it_id', $item_id)

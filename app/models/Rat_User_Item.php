@@ -2,6 +2,7 @@
 class Rat_User_Item extends Eloquent {
 	public $timestamps = false;
 	protected $table = 'rat_user_items';
+	protected $guarded = array();
 
 	public static function getAll($uid) {
 		$items = DB::table('rat_user_items')
@@ -33,5 +34,16 @@ class Rat_User_Item extends Eloquent {
 		return Rat_User_Item::where('uid', $uid)
 		->where('it_id', $item_id)
 		->decrement('qty', $qty);
+	}
+
+	// Starting money default is 2000 
+	public static function initializeMoney($uid, $quantity = 2000)
+	{
+		// item id of money is 2
+		return Rat_User_Item::create([
+			'uid' => $uid, 
+			'it_id' => 2, 
+			'qty' => $quantity
+		]);
 	}
 }
